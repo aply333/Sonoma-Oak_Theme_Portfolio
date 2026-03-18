@@ -1,0 +1,81 @@
+{
+	"title": "Distress and Target",
+	"intro": [
+		"A client - either assigned to you or not has had a crisis event. They displayed aggression or self injury behavior and either in passing or directly you were involved with event.",
+		"We are tracking client relation and its influence to crisis event timeline - all data is anonymized, and what you provide will not be traceable back to you."
+	],
+	"textInputs": [
+		{
+			"id": "staff_id",
+			"name": "staff_id",
+			"label": "Staff ID"
+		},
+		{
+			"id": "student_id",
+			"name": "student_id",
+			"label": "Student ID"
+		}
+	],
+	"radioGroups": [
+		{
+			"legend": "Approach / Avoidance",
+			"prompt": "How does this student typically behave toward you in terms of seeking or avoiding interaction?",
+			"name": "approach_rating",
+			"options": [
+				{ "id": "approach_1", "value": "1", "marker": "1 -", "label": "Frequently seeks me out" },
+				{ "id": "approach_2", "value": "2", "marker": "2 -", "label": "Sometimes seeks me out" },
+				{ "id": "approach_3", "value": "3", "marker": "3 -", "label": "Neutral / no clear pattern" },
+				{ "id": "approach_4", "value": "4", "marker": "4 -", "label": "Sometimes avoids me" },
+				{ "id": "approach_5", "value": "5", "marker": "5 -", "label": "Frequently avoids me" }
+			]
+		},
+		{
+			"legend": "Engagement Quality",
+			"prompt": "When interacting with this student, how would you describe the quality of engagement?",
+			"name": "engagement_rating",
+			"options": [
+				{ "id": "engagement_1", "value": "1", "marker": "1 -", "label": "Very positive (engaged, cooperative, comfortable)" },
+				{ "id": "engagement_2", "value": "2", "marker": "2 -", "label": "Mostly positive" },
+				{ "id": "engagement_3", "value": "3", "marker": "3 -", "label": "Mixed / neutral" },
+				{ "id": "engagement_4", "value": "4", "marker": "4 -", "label": "Mostly negative (resistant, disengaged)" },
+				{ "id": "engagement_5", "value": "5", "marker": "5 -", "label": "Very negative (frequent refusal, distress, conflict)" }
+			]
+		},
+		{
+			"legend": "Confidence Rating",
+			"prompt": "How confident are you in your ratings for this student?",
+			"name": "confidence_rating",
+			"options": [
+				{ "id": "confidence_1", "value": "1", "marker": "1 -", "label": "Very confident" },
+				{ "id": "confidence_2", "value": "2", "marker": "2 -", "label": "Somewhat confident" },
+				{ "id": "confidence_3", "value": "3", "marker": "3 -", "label": "Unsure" },
+				{ "id": "confidence_4", "value": "4", "marker": "4 -", "label": "Low confidence" }
+			]
+		}
+	],
+	"rangeField": {
+		"id": "aggression_intensity",
+		"name": "aggression_intensity",
+		"label": "Aggression Intensity",
+		"prompt": "When this student becomes aggressive toward you, how intense is it typically?",
+		"min": 1,
+		"max": 10,
+		"step": 1,
+		"value": 1,
+		"scale": [
+			{ "marker": "1 -", "label": "No aggression" },
+			{ "marker": "3 -", "label": "Mild (e.g., light contact, minimal risk)" },
+			{ "marker": "5 -", "label": "Moderate (clear attempts, manageable)" },
+			{ "marker": "7 -", "label": "High (forceful, requires intervention)" },
+			{ "marker": "10 -", "label": "Severe (risk of injury, significant escalation)" }
+		]
+	},
+	"textareaField": {
+		"id": "relationship_notes",
+		"name": "relationship_notes",
+		"label": "Additional Context / Patterns (optional)",
+		"rows": 5,
+		"placeholder": "Examples: prefers specific staff traits, responds better during structured tasks, avoids during transitions..."
+	},
+	"submitLabel": "Submit"
+}

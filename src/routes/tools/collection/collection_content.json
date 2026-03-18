@@ -1,0 +1,18 @@
+{
+	"title": "Collection Tools",
+	"intro": "Tools in this section are grouped around collection workflows, review steps, and input utilities.",
+	"tools": [
+		{
+			"title": "Distress and Target",
+			"kicker": "Collection",
+			"description": "Initial collection workflow tool for basic sanity checks and future data-entry logic.",
+			"items": [
+				"Approach / Avoidance",
+				"Engagement Quality",
+				"Confidence Rating",
+				"Aggression Intensity"
+			],
+			"href": "/tools/collection/agr-and-target"
+		}
+	]
+}

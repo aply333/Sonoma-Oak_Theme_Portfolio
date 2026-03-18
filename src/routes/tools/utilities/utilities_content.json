@@ -1,0 +1,16 @@
+{
+	"title": "Project Utilities",
+	"intro": "Internal tools, one-off helpers, and workflow utilities that support project execution without belonging to a single client or category-specific build.",
+	"tools": [
+		{
+			"title": "Content Sync",
+			"description": "Placeholder space for a future utility focused on syncing, reconciling, or reviewing content across sources.",
+			"items": [
+				"Source comparison",
+				"Sync review workflow",
+				"Placeholder implementation"
+			],
+			"href": "/tools/utilities/content-sync"
+		}
+	]
+}

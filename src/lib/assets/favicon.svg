@@ -1,0 +1,8 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- a -->
+  <circle cx="30" cy="36" r="14" stroke="#456F5C" stroke-width="6"/>
+  <line x1="44" y1="28" x2="44" y2="50" stroke="#456F5C" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- leaf -->
+  <path d="M42 14C48 14 52 18 52 22C48 22 42 20 42 14Z" fill="#456F5C"/>
+</svg>

@@ -1,0 +1,491 @@
+{
+	"hero": {
+		"title": "Hi, *c/I'm Andrei/c*",
+		"subtitle": "*c/Full-Stack Developer/c* building production-ready, scalable, and accessible web applications."
+	},
+	"about": {
+		"title": "Who I am.",
+		"links": [
+			{
+				"type": "linkedin",
+				"label": "LinkedIn",
+				"href": "https://www.linkedin.com/in/aply333/"
+			},
+			{
+				"type": "github",
+				"label": "GitHub",
+				"href": "https://github.com/aply333"
+			},
+			{
+				"type": "resume",
+				"label": "Resume",
+				"href": "/resume.pdf"
+			}
+		],
+		"paragraphs": [
+			"I’m a full-stack developer focused on building fast, *ic/accessible/ic*, and *ic/scalable web applications/ic*. I work across the stack — from translating design systems into clean, responsive interfaces to developing backend integrations and shipping *ic/production-ready solutions/ic*.",
+			"My experience includes building and launching client websites using React, Next.js, and WordPress-based architectures. I focus on *ic/performance/ic*, *ic/WCAG accessibility/ic*, and *ic/maintainable code/ic*, taking projects from Figma mock-ups through deployment while collaborating with teams and owning features end to end.",
+			"I bring a practical, *ic/problem-solving approach/ic*, shaped by both professional development work and real-world environments where *ic/adaptability/ic* and *ic/reliability/ic* matter. I’m continuing my computer science education while building and refining *ic/production-level applications/ic*.",
+			"Right now, I’m focused on stepping into a full-stack role where I can contribute immediately — writing clean code, improving user experience, and helping ship meaningful products."
+		],
+		"highlights": [
+			{
+				"title": "Languages",
+				"items": [
+					"HTML",
+					"CSS",
+					"SCSS",
+					"JavaScript",
+					"PHP",
+					"Python",
+					"C++",
+					"SQL"
+				]
+			},
+			{
+				"title": "Frameworks & Libraries",
+				"items": [
+					"React",
+					"Next.js",
+					"Svelte",
+					"Redux",
+					"Express",
+					"WordPress",
+					"Twig",
+					"NumPy",
+					"Plots",
+					"GraphQL",
+					"REST API"
+				]
+			},
+			{
+				"title": "Tools & Platforms",
+				"items": [
+					"Asana",
+					"Figma",
+					"Adobe Suite",
+					"Photomator & Pixelmator",
+					"Git",
+					"Slack",
+					"Axe DevTools"
+				]
+			},
+			{
+				"title": "Professional Skills",
+				"items": [
+					"Technical Communication",
+					"Team Collaboration",
+					"Debugging",
+					"Adaptability",
+					"Attention to Detail",
+					"Documentation"
+				]
+			}
+		]
+	},
+	"projects": {
+		"title": "What I've done.",
+		"intro": "My work is organized into three areas: client web development, data-focused projects, and personal builds. The web section reflects production work delivered for real clients, the data section highlights my ongoing expansion into data and AI, and the hobby section shows how I approach problem-solving outside of traditional development.",
+		"nav": {
+			"primary": "Web",
+			"secondary": [
+				"Work & Education",
+				"Data",
+				"Hobby"
+			]
+		},
+		"categories": {
+			"Web": {
+				"sections": [
+					{
+						"title": "Client Work",
+						"items": [
+							{
+								"title": "Human Rights Center",
+								"stack": [
+									"WordPress",
+									"PHP",
+									"Twig",
+									"ACF",
+									"JavaScript",
+									"SCSS"
+								],
+								"description": "Led development of a dynamic WordPress platform for UC Berkeley’s Human Rights Center. Designed and implemented a custom theming and taxonomy system to support flexible content creation and organization across multiple categories. Extended beyond the default WordPress loop to build structured relationships between content types, enabling scalable and maintainable content management. Focused on performance, accessibility (WCAG), and long-term usability for non-technical users.",
+								"linkLabel": "View Live Site",
+								"linkHref": "https://humanrights.berkeley.edu/"
+							},
+							{
+								"title": "Linea Creative",
+								"stack": [
+									"WordPress",
+									"JavaScript",
+									"Twig",
+									"ACF",
+									"PHP",
+									"SCSS",
+									"SVG"
+								],
+								"description": "Led development of the debut brand site for Linea Creative, a division of Computer Courage. Translated detailed design specifications into a responsive, production-ready site, implementing complex SVG animations and interactive elements. Worked closely with the team to balance visual design with performance and accessibility, ensuring a polished user experience without compromising efficiency.",
+								"linkLabel": "View Live Site",
+								"linkHref": "https://lineacreative.com/"
+							},
+							{
+								"title": "Haas Fund Pitch",
+								"stack": [
+									"WordPress",
+									"JavaScript",
+									"Twig",
+									"ACF",
+									"HTML5 Canvas",
+									"SCSS"
+								],
+								"description": "Developed an internal pitch tool for UC Berkeley’s Haas School, built on WordPress but significantly extended beyond standard architecture. Created a reusable system for delivering interactive funding presentations, replacing static PDF workflows. Implemented a custom animated breakdown of alumni funding using vanilla JavaScript and HTML5 Canvas to communicate complex data in a clear, engaging way.",
+								"responsibilities": [
+									"Built interactive data visualizations using *i/HTML5 Canvas/i* and vanilla JavaScript",
+									"Designed a reusable system for presenting structured funding data",
+									"This was an *i/internal tool/i* and is not publicly accessible — the link directs to the organization it was built for."
+								],
+								"linkLabel": "View Live Site",
+								"linkHref": "https://haas.berkeley.edu/giving/"
+							},
+							{
+								"title": "Hauskens Impact Learning",
+								"stack": [
+									"WordPress",
+									"PHP",
+									"Twig",
+									"ACF",
+									"JavaScript",
+									"SCSS"
+								],
+								"description": "Developed a live WordPress site for Hauskens Impact Learning with a focus on flexible content management and long-term maintainability. Built custom relationships between content types and extended beyond default WordPress behavior to support structured, reusable content across the site. The goal was to give the client a system that stayed easy to update without sacrificing consistency or scalability.",
+								"linkLabel": "View Live Site",
+								"linkHref": "https://hauskensimpactlearning.com/"
+							},
+							{
+								"title": "Auxiliary Works",
+								"stack": [
+									"WCAG",
+									"WordPress",
+									"JavaScript",
+									"CSS",
+									"SCSS",
+									"GULP",
+									"React"
+								],
+								"description": "A collection of targeted client work focused on improving and maintaining existing codebases. This included implementing new features, resolving legacy issues, and bringing sites up to modern *ic/WCAG accessibility standards/ic*. These projects required quickly understanding unfamiliar systems and delivering practical improvements without full rebuilds.",
+								"responsibilities": [
+									"UC Berkeley Fung Institute — accessibility improvements (site later fully rebuilt)",
+									"Donahue Fitzgerald — accessibility updates and feature additions",
+									"Computer Courage — ongoing accessibility and maintenance work",
+									"Font Awesome — internal plugin for icon management"
+								]
+							}
+						]
+					},
+					{
+						"title": "Personal Projects",
+						"items": [
+							{
+								"title": "Portfolio",
+								"stack": [
+									"Svelte",
+									"SCSS",
+									"JSON"
+								],
+								"description": "Built with Svelte to emphasize simplicity, clarity, and performance. This project is the result of multiple iterations, focused on refining how work is presented and structured. The site acts as both a portfolio and a lightweight content system, allowing projects, experience, and data to be organized intentionally and extended over time.",
+								"linkLabel": "View Code",
+								"linkHref": "#"
+							},
+							{
+								"title": "Conway's Game",
+								"stack": [
+									"JavaScript",
+									"HTML",
+									"CSS"
+								],
+								"description": "Coursework project recreating *i/Conway's Game of Life/i*, focused on implementing rule-based systems and simulating emergent behavior. Built using JavaScript to model how simple rules can produce complex patterns, with user-defined initial states to observe how the system evolves over time.",
+								"linkLabel": "View Code",
+								"linkHref": "https://github.com/aply333/ConwayRevisit"
+							},
+							{
+								"title": "Canvas Playground",
+								"stack": [
+									"JavaScript",
+									"HTML5 Canvas",
+									"CSS"
+								],
+								"description": "Self-initiated project exploring *i/HTML5 Canvas/i* and native browser rendering. Built to better understand animation, interaction, and performance without relying on external libraries. The work here directly informed later client implementations, including the Haas Fund Pitch project.",
+								"linkLabel": "View Code",
+								"linkHref": "https://github.com/aply333/CanvasGame1"
+							},
+							{
+								"title": "Focused KanBan",
+								"stack": [
+									"React",
+									"Redux",
+									"Express",
+									"Node.js"
+								],
+								"description": "A personal project exploring task management systems using React and Redux with an Express backend. Implemented drag-and-drop functionality and dynamic state management for organizing tasks. The project expanded beyond its initial scope into a broader concept around code organization and documentation, ultimately becoming a practical lesson in managing scope and complexity.",
+								"responsibilities": [
+									"Implemented drag-and-drop interactions for task organization",
+									"Managed application state using Redux for dynamic updates",
+									"Designed backend structure to support scalable task data"
+								],
+								"linkLabel": "View Code",
+								"linkHref": "https://github.com/aply333/FocusedKanBan"
+							},
+							{
+								"title": "Merchant Marketplace",
+								"stack": [
+									"React",
+									"Express",
+									"Ant Design",
+									"Figma"
+								],
+								"description": "Final sprint project at BloomTech. Acted as a full-stack developer with a frontend focus, while also bridging communication between product, design, data, and backend teams. Contributed across disciplines and helped align implementation with design and data requirements.",
+								"responsibilities": [
+									"Developed frontend components using React and Ant Design",
+									"Collaborated with cross-functional teams to align UI with product and data requirements"
+								],
+								"linkLabel": "View Code",
+								"linkHref": "https://github.com/BloomTech-Labs/LabsPT13-Merchant-Marketplace-C-FE"
+							},
+							{
+								"title": "Restaurant Passport",
+								"stack": [
+									"HTML",
+									"LESS",
+									"JavaScript"
+								],
+								"description": "Early team-based sprint project building a Yelp-style application with gamification elements. My role was developing the landing page using HTML and LESS while keeping the visual design consistent with SPA components built by other team members. It stands as one of my first completed team projects and a solid foundation for the frontend work that followed.",
+								"linkLabel": "View Code",
+								"linkHref": "https://github.com/bw-restaurant-passport-1"
+							}
+						]
+					}
+				]
+			},
+			"Work & Education": {
+				"sections": [
+					{
+						"title": "Work History",
+						"items": [
+							{
+								"title": "U.C.P - Cypress School",
+								"timeRange": "2024 - Present",
+								"role": "Teacher’s Aide",
+								"description": "Cypress School supports individuals with behavioral needs stemming from disabilities. I work directly with students, developing IEPs (Individual Education Plans) and collecting structured data to support therapists in tailoring care for each individual. The role requires adaptability, clear communication, and consistent documentation in high-pressure environments.",
+								"responsibilities": [
+									"Supported daily living skills for 6+ students with developmental disabilities, promoting independence and smoother transitions into long-term care environments.",
+									"Tracked behavioral patterns in Ensora and maintained detailed progress notes, ensuring clear communication with behavioral and speech therapy teams.",
+									"Assisted across multiple classrooms, responding to high-need situations and supporting staff during critical moments.",
+									"De-escalated crisis situations using structured intervention strategies, helping guide students toward regulation."
+								],
+								"linkLabel": "Company Site",
+								"linkHref": "https://www.ucpnb.org/cypress-school"
+							},
+							{
+								"title": "Computer Courage - Linea Creative",
+								"timeRange": "2022 - 2024",
+								"role": "Junior Full-Stack Web Developer",
+								"description": "At Computer Courage and its division Linea Creative, I contributed to building production-ready WordPress platforms for a range of clients, including UC Berkeley. My work focused on accessibility, performance, and translating design systems into maintainable, scalable implementations across multiple projects.",
+								"responsibilities": [
+									"Developed and launched 4 production websites from Figma mockups using WordPress and React",
+									"Built responsive, mobile-first interfaces to improve usability across devices",
+									"Ensured WCAG compliance using Axe DevTools and Siteimprove",
+									"Maintained and improved legacy codebases to meet modern accessibility and performance standards"
+								],
+								"linkLabel": "Company Site",
+								"linkHref": "https://lineacreative.com/"
+							},
+							{
+								"title": "Geek Squad",
+								"timeRange": "2019 - 2022",
+								"role": "Customer Service Agent",
+								"description": "Worked directly with customers to diagnose and resolve technical issues across a range of consumer electronics. Responsible for intake, documentation, and translating technical problems into clear communication for both customers and repair teams.",
+								"responsibilities": [
+									"Diagnosed and troubleshot hardware and software issues across a range of consumer devices",
+									"Documented technical issues and managed service tickets to ensure accurate handoffs",
+									"Translated technical problems into clear communication for customers and internal teams"
+								],
+								"linkLabel": "Company Site",
+								"linkHref": "https://www.bestbuy.com/site/services/geek-squad/pcmcat138100050018.c?id=pcmcat138100050018"
+							}
+						]
+					},
+					{
+						"title": "Education",
+						"items": [
+							{
+								"title": "Santa Rosa Junior College",
+								"timeRange": "2024 - Present",
+								"role": "A.S. in Computer Science",
+								"description": "Pursuing an A.S. in Computer Science to strengthen my foundation in data structures, algorithms, and applied computing. Planning to transfer and continue toward a bachelor's degree with a focus on data and AI.",
+								"responsibilities": [
+									"Completed core coursework in computer science fundamentals including programming and systems",
+									"Pursued additional coursework in data science and graphic design to broaden technical and visual skill sets"
+								],
+								"linkLabel": "College Site",
+								"linkHref": "https://srjc.org/"
+							},
+							{
+								"title": "BloomTech (formerly Lambda School)",
+								"timeRange": "2019 - 2021",
+								"role": "Full-Stack Web Development & Computer Science",
+								"description": "Completed an intensive full-stack web development program focused on building production-ready applications in team-based sprint environments. Gained experience across frontend and backend development using React and Express, with an emphasis on collaboration, problem-solving, and shipping functional products under real-world constraints.",
+								"responsibilities": [
+									"Built full-stack applications in team-based sprint environments using React and Express",
+									"Worked across frontend and backend, contributing to UI implementation, API integration, and overall application structure"
+								],
+								"linkLabel": "Program Detail",
+								"linkHref": "https://www.bloomtech.com/courses/full-stack-web-development"
+							}
+						]
+					}
+				],
+				"reflection": {
+					"title": "Reflection",
+					"body": "Each role I’ve taken on has shaped how I approach my work. Geek Squad strengthened my communication and documentation, Computer Courage pushed me to deliver in real production environments, and UCP continues to develop my ability to adapt in complex, high-pressure situations. I value reflection because it’s how I improve — taking what works, learning from what doesn’t, and applying it moving forward."
+				}
+			},
+			"Data": [
+				{
+					"title": "Data Projects (In Progress)",
+					"description": "Currently working with my employer to initiate a data analysis effort focused on evaluating existing practices. The work is in early planning, including defining scope, identifying data sources, and setting up a foundation for future analysis. Additional projects will be added as they reach production-ready quality.",
+					"responsibilities": [
+						"Defining project scope and identifying key questions to evaluate existing practices",
+						"Auditing and organizing available data sources for analysis readiness"
+					]
+				}
+			],
+			"Hobby": {
+				"introSection": {
+					"title": "Hobby Projects",
+					"body": "Smaller, hands-on projects and experiments that reflect how I approach problem-solving outside of traditional development. These are brief snapshots of process and iteration, with deeper write-ups to follow."
+				},
+				"tagCatalog": [
+					[
+						"photography",
+						"#3f6f5a",
+						0
+					],
+					[
+						"design",
+						"#00c2b8",
+						1
+					],
+					[
+						"build",
+						"#6b7280",
+						2
+					],
+					[
+						"mechanic",
+						"#6a5a46",
+						3
+					],
+					[
+						"3D-printing",
+						"#6c4f7d",
+						4
+					],
+					[
+						"troubleshooting",
+						"#7a3f3f",
+						5
+					],
+					[
+						"code",
+						"#2f5d7a",
+						6
+					],
+					[
+						"linux",
+						"#4d5f2f",
+						7
+					],
+					[
+						"3D-modeling",
+						"#7b5c8e",
+						8
+					]
+				],
+				"items": [
+					{
+						"title": "Ender 3 Max Build",
+						"tagIndexes": [
+							2,
+							3,
+							4,
+							5,
+							6,
+							8
+						],
+						"description": "Restoring and upgrading a second-hand Ender 3 Max to improve reliability and performance, working through hardware constraints and firmware customization.",
+						"responsibilities": [
+							"Compiled and configured custom Marlin firmware to support upgraded hardware",
+							"Adapted parts to integrate non-standard components into the system",
+							"Upgraded motherboard and rewired the system to improve stability and reliability"
+						]
+					},
+					{
+						"title": "Pro-Bono Photographer",
+						"tagIndexes": [
+							0,
+							2,
+							5
+						],
+						"description": "Occasional photography using a Fujifilm camera, focusing on composition, lighting, and practical shooting workflows.",
+						"responsibilities": [
+							"Captured photography during travel and school events, with selected images used in organizational materials and media",
+							"Applied composition, lighting, and camera settings to consistently improve shot quality",
+							"Adapted and tuned existing 3D models to create lens adapters, improving fit, light seal, and overall stability"
+						]
+					},
+					{
+						"title": "Where's My Coolant!",
+						"tagIndexes": [
+							3,
+							5
+						],
+						"description": "A small issue that expanded into a full diagnostic process, emphasizing systematic troubleshooting and root-cause analysis.",
+						"responsibilities": [
+							"Diagnosed a non-obvious system issue through step-by-step troubleshooting",
+							"Traced root causes using iterative testing rather than assumptions",
+							"Validated the fix to ensure a stable, long-term solution"
+						]
+					},
+					{
+						"title": "Let's Not Blind Others",
+						"tagIndexes": [
+							3,
+							5
+						],
+						"description": "Headlight replacement project balancing planning with on-the-fly adjustments to achieve a clean, functional result.",
+						"responsibilities": [
+							"Planned parts selection and budget to meet project constraints",
+							"Adjusted installation approach in real time to handle unexpected issues",
+							"Balanced functionality and alignment to achieve a clean, reliable result"
+						]
+					},
+					{
+						"title": "Living Linux",
+						"tagIndexes": [
+							5,
+							6,
+							7
+						],
+						"description": "Ongoing transition of personal workflows to Linux and open-source tools, exploring customization and system-level control.",
+						"responsibilities": [
+							"Used Linux environments since early experience, often experimenting with different distributions and setups",
+							"Hosted small servers and explored alternative interfaces and workflows",
+							"Repurposed older hardware and connected legacy tools using open-source solutions"
+						]
+					}
+				]
+			}
+		}
+	}
+}

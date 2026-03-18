@@ -1,0 +1,24 @@
+{
+	"title": "Working Utilities",
+	"intro": "This space will act as a link tree for future tools and internal utilities. For now, it holds the structure those projects will grow into.",
+	"tools": [
+		{
+			"title": "Data Tools",
+			"description": "These tools will be largely population focused and used to gather data for analysis projects.",
+			"items": ["Distress and Target"],
+			"href": "/tools/collection"
+		},
+		{
+			"title": "Project Utilities",
+			"description": "Internal tools, not project specific or are simply one offs.",
+			"items": ["Content Sync: Future Project"],
+			"href": "/tools/utilities"
+		},
+		{
+			"title": "Creative Tools",
+			"description": "These tools are directly tied to a hobby project.",
+			"items": [],
+			"href": "/tools/creative"
+		}
+	]
+}
