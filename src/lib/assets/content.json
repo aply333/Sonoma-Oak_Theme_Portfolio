@@ -1,6 +1,6 @@
 {
 	"hero": {
-		"title": "Hi, *c/I'm Andrei/c*",
+		"title": "Hi, I'm *c/Andrei/c*",
 		"subtitle": "*c/Full-Stack Developer/c* building production-ready, scalable, and accessible web applications."
 	},
 	"about": {
@@ -195,7 +195,7 @@
 								],
 								"description": "Built with Svelte to emphasize simplicity, clarity, and performance. This project is the result of multiple iterations, focused on refining how work is presented and structured. The site acts as both a portfolio and a lightweight content system, allowing projects, experience, and data to be organized intentionally and extended over time.",
 								"linkLabel": "View Code",
-								"linkHref": "#"
+								"linkHref": "https://github.com/aply333/Sonoma-Oak_Theme_Portfolio"
 							},
 							{
 								"title": "Conway's Game",
