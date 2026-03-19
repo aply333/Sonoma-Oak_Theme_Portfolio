@@ -2,6 +2,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import "$lib/assets/global_styles/globals.scss";
 	import content from '$lib/assets/content.json';
+	import { stripFormattedText } from '$lib/utils/markdown';
 	import { page } from '$app/state';
 
 	let { children } = $props();
@@ -21,7 +22,9 @@
 		return `Andrei Portfolio, ${currentYear}.`;
 	});
 
-	const documentTitle = $derived.by(() => content.hero.title.replace(/\*[icb]+\/(.*?)\/[icb]+\*/g, '$1'));
+	const documentTitle = $derived.by(() =>
+		stripFormattedText(page.data?.content?.hero?.title || content.hero.title)
+	);
 </script>
 
 <svelte:head>
