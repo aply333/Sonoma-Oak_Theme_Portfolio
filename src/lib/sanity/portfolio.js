@@ -159,6 +159,61 @@ function mapFeaturedData(entry) {
 }
 
 /**
+ * @param {any} entry
+ */
+function mapWorkEducationEntry(entry) {
+	return {
+		title: entry?.title,
+		timeRange: entry?.timeRange,
+		role: entry?.role,
+		description: entry?.description,
+		responsibilities: entry?.responsibilities ?? [],
+		linkLabel: entry?.linkLabel,
+		linkHref: entry?.linkHref
+	};
+}
+
+/**
+ * @param {any} workEducationContent
+ */
+function mapWorkEducationCategory(workEducationContent) {
+	const workEntries = workEducationContent?.workEntries ?? [];
+	const educationEntries = workEducationContent?.educationEntries ?? [];
+	const sections = [];
+
+	if (workEntries.length) {
+		sections.push({
+			title: workEducationContent?.workTitle || 'Work History',
+			items: workEntries.map(mapWorkEducationEntry)
+		});
+	}
+
+	if (educationEntries.length) {
+		sections.push({
+			title: workEducationContent?.educationTitle || 'Education',
+			items: educationEntries.map(mapWorkEducationEntry)
+		});
+	}
+
+	if (!sections.length) {
+		return null;
+	}
+
+	const hasReflection =
+		Boolean(workEducationContent?.reflectionTitle) || Boolean(workEducationContent?.reflectionBody);
+
+	return {
+		sections,
+		reflection: hasReflection
+			? {
+					title: workEducationContent?.reflectionTitle || 'Reflection',
+					body: workEducationContent?.reflectionBody || ''
+				}
+			: null
+	};
+}
+
+/**
  * @param {any} galleryContent
  */
 function mergeGalleryCategories(galleryContent) {
@@ -216,6 +271,7 @@ function mergeGalleryCategories(galleryContent) {
 export function mergePortfolioContent(sanityContent) {
 	const content = jsonFallbackEnabled ? cloneFallback() : createEmptyContent();
 	const portfolioContent = sanityContent?.portfolioContent;
+	const workEducationContent = sanityContent?.workEducationContent;
 
 	if (!sanityContent) {
 		return content;
@@ -267,6 +323,17 @@ export function mergePortfolioContent(sanityContent) {
 			categories: {
 				...content.projects.categories,
 				...sanityCategories
+			}
+		};
+	}
+
+	const workEducationCategory = mapWorkEducationCategory(workEducationContent);
+	if (workEducationCategory) {
+		content.projects = {
+			...content.projects,
+			categories: {
+				...content.projects.categories,
+				'Work & Education': workEducationCategory
 			}
 		};
 	}

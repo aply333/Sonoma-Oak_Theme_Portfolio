@@ -93,6 +93,34 @@ export const portfolioContentQuery = groq`
 						}, [])
 					}
 				}
+			},
+		"workEducationContent": *[_type == "workEducationContent"]
+			| order(_updatedAt desc)[0]{
+				title,
+				workTitle,
+				"workEntries": coalesce(workEntries[]->{
+					_id,
+					title,
+					timeRange,
+					role,
+					description,
+					responsibilities,
+					linkLabel,
+					linkHref
+				}, []),
+				educationTitle,
+				"educationEntries": coalesce(educationEntries[]->{
+					_id,
+					title,
+					timeRange,
+					role,
+					description,
+					responsibilities,
+					linkLabel,
+					linkHref
+				}, []),
+				reflectionTitle,
+				reflectionBody
 			}
 	}
 `;

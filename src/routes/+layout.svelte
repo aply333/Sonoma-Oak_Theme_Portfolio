@@ -51,7 +51,7 @@
 		<p class="site-footer__text">{footerLabel}</p>
 		<nav class="site-footer__nav" aria-label="Footer">
 			<a href="/tools">Tools</a>
-			<a href="/blog">Blog</a>
+			<a class="site-footer__blog-link" href="/blog">Blog</a>
 		</nav>
 	</footer>
 </div>
@@ -121,6 +121,12 @@
 
 	.site-footer__nav a {
 		color: var(--text);
+	}
+
+	@media (min-width: 769px) {
+		.site-footer__blog-link {
+			padding-right: 2rem;
+		}
 	}
 
 	@media (max-width: 768px) {
