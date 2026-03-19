@@ -3,16 +3,17 @@
 	import OakAccent from '$lib/assets/components/accent__components/oak_accent.svelte';
 	import ProjectGallery from '$lib/assets/components/project__components/project_gallery.svelte';
 	import RichText from '$lib/assets/components/rich_text.svelte';
-	import content from '$lib/assets/content.json';
+
+	let { data } = $props();
 </script>
 
 <div class="grid_wrapper home_page">
 	<div class="title_heading fx-blur-frame fx-blur-frame--tablet-only">
 		<h1 class="title_1">
-			<RichText text={content.hero.title} />
+			<RichText text={data.content.hero.title} />
 		</h1>
 		<p class="subscript_1">
-			<RichText text={content.hero.subtitle} />
+			<RichText text={data.content.hero.subtitle} />
 		</p>
 	</div>
 	<div class="about_me_grid">
@@ -20,11 +21,11 @@
 			<OakAccent />
 		</div>
 		<div class="about_me_content">
-			<AboutMe content={content.about} />
+			<AboutMe content={data.content.about} />
 		</div>
 	</div>
 	<div class="projects_grid">
-		<ProjectGallery content={content.projects} />
+		<ProjectGallery content={data.content.projects} />
 	</div>
 </div>
 
