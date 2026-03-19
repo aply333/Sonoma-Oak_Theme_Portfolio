@@ -1,5 +1,7 @@
+import { createClient } from '@sanity/client';
 import fallbackContent from '$lib/assets/content.json';
-import { sanityClient } from '$lib/sanity/client';
+import { env as privateEnv } from '$env/dynamic/private';
+import { env } from '$env/dynamic/public';
 import { portfolioContentQuery } from '$lib/sanity/queries';
 
 const highlightSections = [
@@ -9,25 +11,86 @@ const highlightSections = [
 	['professionalSkills', 'Professional Skills']
 ];
 
+const jsonFallbackEnabled = env.DEBUG_ENABLE_JSON_FALLBACK === 'true';
+
+const sanityClient = createClient({
+	projectId: env.PUBLIC_SANITY_PROJECT_ID || 'zh3wqn4s',
+	dataset: env.PUBLIC_SANITY_DATASET || 'production',
+	apiVersion: env.PUBLIC_SANITY_API_VERSION || '2026-03-18',
+	useCdn: env.PUBLIC_SANITY_USE_CDN
+		? env.PUBLIC_SANITY_USE_CDN === 'true'
+		: false,
+	perspective: env.PUBLIC_SANITY_PERSPECTIVE || 'published',
+	token: privateEnv.SANITY_READ_TOKEN || undefined
+});
+
 function cloneFallback() {
 	return /** @type {any} */ (structuredClone(fallbackContent));
 }
 
-/**
- * @param {{title?: string}[] | null | undefined} items
- */
-function titles(items) {
-	return (items ?? []).map((item) => item?.title).filter(Boolean);
+function createEmptyContent() {
+	return {
+		external_links: {
+			email: '',
+			github: '',
+			linkedin: ''
+		},
+		hero: {
+			title: '',
+			subtitle: ''
+		},
+		about: {
+			title: '',
+			links: [],
+			paragraphs: [],
+			highlights: []
+		},
+		projects: {
+			title: '',
+			intro: '',
+			nav: {
+				primary: 'Web',
+				secondary: ['Work & Education', 'Data', 'Hobby']
+			},
+			categories: {
+				Web: {
+					sections: []
+				},
+				'Work & Education': {
+					sections: [],
+					reflection: null
+				},
+				Data: [],
+				Hobby: {
+					introSection: {
+						title: '',
+						body: ''
+					},
+					items: []
+				}
+			}
+		},
+		hobbies: {
+			title: '',
+			intro: '',
+			items: []
+		},
+		data: {
+			title: '',
+			intro: '',
+			items: []
+		}
+	};
 }
 
 /**
- * @param {any} about
+ * @param {Record<string, {title?: string}[] | null | undefined> | null | undefined} selectedHighlights
  */
-function normalizeHighlights(about) {
+function normalizeSelectedHighlights(selectedHighlights) {
 	const sections = highlightSections
 		.map(([key, title]) => ({
 			title,
-			items: titles(about?.highlights?.[key])
+			items: (selectedHighlights?.[key] ?? []).map(skillTitle).filter(Boolean)
 		}))
 		.filter((section) => section.items.length);
 
@@ -46,19 +109,14 @@ function skillTitle(skill) {
  */
 function mapFeaturedProject(entry) {
 	const stack = (entry?.skills ?? []).map(skillTitle).filter(Boolean);
-	const categoryTitles = (entry?.categories ?? [])
-		.map(
-			/** @param {{title?: string}} category */
-			(category) => category?.title
-		)
-		.filter(Boolean);
+	const categoryTitle = entry?.category?.title;
 
 	return {
 		title: entry?.title,
 		stack,
 		description: entry?.description,
 		responsibilities: entry?.details ?? [],
-		projectCategories: categoryTitles,
+		projectCategory: categoryTitle,
 		linkLabel: entry?.link ? 'View Project' : undefined,
 		linkHref: entry?.link
 	};
@@ -101,16 +159,16 @@ function mapFeaturedData(entry) {
 }
 
 /**
- * @param {any} projectGallery
- * @param {any} hobbyGallery
- * @param {any} dataGallery
+ * @param {any} galleryContent
  */
-function mergeGalleryCategories(projectGallery, hobbyGallery, dataGallery) {
+function mergeGalleryCategories(galleryContent) {
 	/** @type {Record<string, any>} */
 	const categories = {};
 
-	const clientProjects = projectGallery?.clientEntries ?? [];
-	const personalProjects = projectGallery?.personalEntries ?? [];
+	const clientProjects = galleryContent?.projectGallery?.clientEntries ?? [];
+	const personalProjects = galleryContent?.projectGallery?.personalEntries ?? [];
+	const featuredHobbies = galleryContent?.hobbyGallery?.featuredEntries ?? [];
+	const featuredDataEntries = galleryContent?.dataGallery?.featuredEntries ?? [];
 
 	if (clientProjects.length || personalProjects.length) {
 		categories.Web = {
@@ -135,17 +193,17 @@ function mergeGalleryCategories(projectGallery, hobbyGallery, dataGallery) {
 		};
 	}
 
-	if (dataGallery?.featuredEntries?.length) {
-		categories.Data = dataGallery.featuredEntries.map(mapFeaturedData);
+	if (featuredDataEntries.length) {
+		categories.Data = featuredDataEntries.map(mapFeaturedData);
 	}
 
-	if (hobbyGallery?.featuredEntries?.length) {
+	if (featuredHobbies.length) {
 		categories.Hobby = {
 			introSection: {
-				title: hobbyGallery.title,
-				body: hobbyGallery.intro
+				title: galleryContent?.hobbyGallery?.title,
+				body: galleryContent?.hobbyGallery?.intro
 			},
-			items: hobbyGallery.featuredEntries.map(mapFeaturedHobby)
+			items: featuredHobbies.map(mapFeaturedHobby)
 		};
 	}
 
@@ -156,38 +214,43 @@ function mergeGalleryCategories(projectGallery, hobbyGallery, dataGallery) {
  * @param {any} sanityContent
  */
 export function mergePortfolioContent(sanityContent) {
-	const content = cloneFallback();
+	const content = jsonFallbackEnabled ? cloneFallback() : createEmptyContent();
+	const portfolioContent = sanityContent?.portfolioContent;
 
 	if (!sanityContent) {
 		return content;
 	}
 
-	if (sanityContent.external_links) {
-		content.external_links = sanityContent.external_links;
+	if (portfolioContent?.external_links) {
+		content.external_links = portfolioContent.external_links;
 	}
 
-	if (sanityContent.hero) {
+	if (portfolioContent?.hero) {
 		content.hero = {
 			...content.hero,
-			...sanityContent.hero
+			...portfolioContent.hero
 		};
 	}
 
-	if (sanityContent.about) {
+	if (portfolioContent?.about) {
 		content.about = {
 			...content.about,
-			...sanityContent.about
+			...(portfolioContent.about.title ? { title: portfolioContent.about.title } : {}),
+			...(Array.isArray(portfolioContent.about.links) ? { links: portfolioContent.about.links } : {}),
+			...(Array.isArray(portfolioContent.about.paragraphs)
+				? { paragraphs: portfolioContent.about.paragraphs }
+				: {})
 		};
-
-		const highlights = normalizeHighlights(sanityContent.about);
-		if (highlights) {
-			content.about.highlights = highlights;
-		}
 	}
 
-	const projectGallery = sanityContent.galleryContent?.projectGallery;
-	const hobbyGallery = sanityContent.galleryContent?.hobbyGallery;
-	const dataGallery = sanityContent.galleryContent?.dataGallery;
+	const highlights = normalizeSelectedHighlights(portfolioContent?.about?.highlights);
+	if (highlights) {
+		content.about.highlights = highlights;
+	}
+
+	const projectGallery = portfolioContent?.galleryContent?.projectGallery;
+	const hobbyGallery = portfolioContent?.galleryContent?.hobbyGallery;
+	const dataGallery = portfolioContent?.galleryContent?.dataGallery;
 
 	if (projectGallery?.title || projectGallery?.intro) {
 		content.projects = {
@@ -197,7 +260,7 @@ export function mergePortfolioContent(sanityContent) {
 		};
 	}
 
-	const sanityCategories = mergeGalleryCategories(projectGallery, hobbyGallery, dataGallery);
+	const sanityCategories = mergeGalleryCategories(portfolioContent?.galleryContent);
 	if (Object.keys(sanityCategories).length) {
 		content.projects = {
 			...content.projects,
@@ -208,19 +271,21 @@ export function mergePortfolioContent(sanityContent) {
 		};
 	}
 
-	if (hobbyGallery?.featuredEntries?.length) {
+	const featuredHobbies = hobbyGallery?.featuredEntries ?? [];
+	if (featuredHobbies.length) {
 		content.hobbies = {
-			title: hobbyGallery.title,
-			intro: hobbyGallery.intro,
-			items: hobbyGallery.featuredEntries.map(mapFeaturedHobby)
+			title: hobbyGallery?.title || content.hobbies?.title,
+			intro: hobbyGallery?.intro || content.hobbies?.intro,
+			items: featuredHobbies.map(mapFeaturedHobby)
 		};
 	}
 
-	if (dataGallery?.featuredEntries?.length) {
+	const featuredDataEntries = dataGallery?.featuredEntries ?? [];
+	if (featuredDataEntries.length) {
 		content.data = {
-			title: dataGallery.title,
-			intro: dataGallery.intro,
-			items: dataGallery.featuredEntries.map(mapFeaturedData)
+			title: dataGallery?.title || content.data?.title,
+			intro: dataGallery?.intro || content.data?.intro,
+			items: featuredDataEntries.map(mapFeaturedData)
 		};
 	}
 
@@ -233,6 +298,6 @@ export async function getPortfolioContent() {
 		return mergePortfolioContent(sanityContent);
 	} catch (error) {
 		console.error('Failed to fetch portfolio content from Sanity:', error);
-		return cloneFallback();
+		return jsonFallbackEnabled ? cloneFallback() : createEmptyContent();
 	}
 }

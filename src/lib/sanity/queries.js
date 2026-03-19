@@ -1,87 +1,98 @@
 import groq from 'groq';
 
 export const portfolioContentQuery = groq`
-	*[_type == "portfolioContent" && _id == "portfolioContent"][0]{
-		external_links,
-		hero,
-		about{
-			title,
-			links,
-			paragraphs,
-			highlights{
-				languages[]->{
-					title
+	{
+		"portfolioContent": *[_type == "portfolioContent" && _id in ["drafts.portfolioContent", "portfolioContent"]]
+			| order(_id desc)[0]{
+				external_links,
+				hero,
+				about{
+					title,
+					links,
+					paragraphs,
+					highlights{
+						"languages": coalesce(languages[]->{
+							_id,
+							title,
+							category
+						}, []),
+						"frameworks": coalesce(frameworks[]->{
+							_id,
+							title,
+							category
+						}, []),
+						"tools": coalesce(tools[]->{
+							_id,
+							title,
+							category
+						}, []),
+						"professionalSkills": coalesce(professionalSkills[]->{
+							_id,
+							title,
+							category
+						}, [])
+					}
 				},
-				frameworks[]->{
-					title
-				},
-				tools[]->{
-					title
-				},
-				professionalSkills[]->{
-					title
+				galleryContent{
+					projectGallery{
+						title,
+						intro,
+						"clientEntries": coalesce(clientEntries[]->{
+							_id,
+							title,
+							type,
+							description,
+							details,
+							link,
+							skills[]->{
+								title,
+								category
+							},
+							category->{
+								title
+							}
+						}, []),
+						"personalEntries": coalesce(personalEntries[]->{
+							_id,
+							title,
+							type,
+							description,
+							details,
+							link,
+							skills[]->{
+								title,
+								category
+							},
+							category->{
+								title
+							}
+						}, [])
+					},
+					hobbyGallery{
+						title,
+						intro,
+						"featuredEntries": coalesce(featuredEntries[]->{
+							_id,
+							title,
+							description,
+							responsibilities,
+							tags[]->{
+								title,
+								color
+							}
+						}, [])
+					},
+					dataGallery{
+						title,
+						intro,
+						"featuredEntries": coalesce(featuredEntries[]->{
+							_id,
+							title,
+							description,
+							responsibilities
+						}, [])
+					}
 				}
 			}
-		},
-		galleryContent{
-			projectGallery{
-				title,
-				intro,
-				clientEntries[]->{
-					_id,
-					title,
-					type,
-					description,
-					details,
-					link,
-					skills[]->{
-						title,
-						category
-					},
-					categories[]->{
-						title
-					}
-				},
-				personalEntries[]->{
-					_id,
-					title,
-					type,
-					description,
-					details,
-					link,
-					skills[]->{
-						title,
-						category
-					},
-					categories[]->{
-						title
-					}
-				}
-			},
-			hobbyGallery{
-				title,
-				intro,
-				featuredEntries[]->{
-					_id,
-					title,
-					description,
-					responsibilities,
-					tags[]->{
-						title,
-						color
-					}
-				}
-			},
-			dataGallery{
-				title,
-				intro,
-				featuredEntries[]->{
-					_id,
-					title,
-					description,
-					responsibilities
-				}
-			}
-		}
 	}
 `;
