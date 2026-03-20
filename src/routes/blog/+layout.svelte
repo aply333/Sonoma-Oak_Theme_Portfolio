@@ -1,4 +1,5 @@
 <script>
+	import '$lib/assets/area_styles/blog.scss';
 	import RouteSectionNav from '$lib/assets/components/route__components/route_section_nav.svelte';
 
 	let { children } = $props();

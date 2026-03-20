@@ -93,6 +93,260 @@ export const portfolioContentQuery = groq`
 						}, [])
 					}
 				}
+			},
+		"workEducationContent": *[_type == "workEducationContent"]
+			| order(_updatedAt desc)[0]{
+				title,
+				workTitle,
+				"workEntries": coalesce(workEntries[]->{
+					_id,
+					title,
+					timeRange,
+					role,
+					description,
+					responsibilities,
+					linkLabel,
+					linkHref
+				}, []),
+				educationTitle,
+				"educationEntries": coalesce(educationEntries[]->{
+					_id,
+					title,
+					timeRange,
+					role,
+					description,
+					responsibilities,
+					linkLabel,
+					linkHref
+				}, []),
+				reflectionTitle,
+				reflectionBody
 			}
+	}
+`;
+
+export const blogRootQuery = groq`
+	{
+		"blogContent": *[_type == "blogContent" && _id in ["drafts.blogContent", "blogContent"]]
+			| order(_id desc)[0]{
+				title,
+				intro
+			},
+		"projectPosts": *[_type == "projectBlog"] | order(intro.publishedAt desc){
+			_id,
+			title,
+			"slug": slug.current,
+			"publishedAt": coalesce(intro.publishedAt, _createdAt),
+			"excerpt": intro.excerpt,
+			"skills": coalesce(finalSection.projects[0]->skills[]->title, [])
+		},
+		"dataPosts": *[_type == "dataBlog"] | order(intro.publishedAt desc){
+			_id,
+			title,
+			"slug": slug.current,
+			"publishedAt": coalesce(intro.publishedAt, _createdAt),
+			"excerpt": intro.excerpt,
+			"skills": []
+		},
+		"hobbyPosts": *[_type == "hobbyBlog"] | order(intro.publishedAt desc){
+			_id,
+			title,
+			"slug": slug.current,
+			"publishedAt": coalesce(intro.publishedAt, _createdAt),
+			"excerpt": intro.excerpt,
+			"tags": coalesce(finalSection.hobbies[0]->tags[]->{
+				title,
+				color
+			}, [])
+		}
+	}
+`;
+
+export const projectBlogPageQuery = groq`
+	{
+		"pageContent": *[_type == "projectBlogContent" && _id in ["drafts.projectBlogContent", "projectBlogContent"]]
+			| order(_id desc)[0]{
+				title,
+				intro,
+				"featuredArticle": featuredArticle->{
+					title,
+					"publishedAt": coalesce(intro.publishedAt, _createdAt),
+					"excerpt": intro.excerpt,
+					"skills": coalesce(finalSection.projects[0]->skills[]->title, [])
+				}
+			},
+		"posts": *[_type == "projectBlog"] | order(coalesce(intro.publishedAt, _createdAt) desc){
+			_id,
+			title,
+			"slug": slug.current,
+			"publishedAt": coalesce(intro.publishedAt, _createdAt),
+			"excerpt": intro.excerpt,
+			"skills": coalesce(finalSection.projects[0]->skills[]->title, [])
+		}
+	}
+`;
+
+export const dataBlogPageQuery = groq`
+	{
+		"pageContent": *[_type == "dataBlogContent" && _id in ["drafts.dataBlogContent", "dataBlogContent"]]
+			| order(_id desc)[0]{
+				title,
+				intro,
+				"featuredArticle": featuredArticle->{
+					title,
+					"publishedAt": coalesce(intro.publishedAt, _createdAt),
+					"excerpt": intro.excerpt,
+					"skills": []
+				}
+			},
+		"posts": *[_type == "dataBlog"] | order(coalesce(intro.publishedAt, _createdAt) desc){
+			_id,
+			title,
+			"slug": slug.current,
+			"publishedAt": coalesce(intro.publishedAt, _createdAt),
+			"excerpt": intro.excerpt,
+			"skills": []
+		}
+	}
+`;
+
+export const hobbyBlogPageQuery = groq`
+	{
+		"pageContent": *[_type == "hobbyBlogContent" && _id in ["drafts.hobbyBlogContent", "hobbyBlogContent"]]
+			| order(_id desc)[0]{
+				title,
+				intro,
+				"featuredArticle": featuredArticle->{
+					title,
+					"publishedAt": coalesce(intro.publishedAt, _createdAt),
+					"excerpt": intro.excerpt,
+					"tags": coalesce(finalSection.hobbies[0]->tags[]->{
+						title,
+						color
+					}, [])
+				}
+			},
+		"posts": *[_type == "hobbyBlog"] | order(coalesce(intro.publishedAt, _createdAt) desc){
+			_id,
+			title,
+			"slug": slug.current,
+			"publishedAt": coalesce(intro.publishedAt, _createdAt),
+			"excerpt": intro.excerpt,
+			"tags": coalesce(finalSection.hobbies[0]->tags[]->{
+				title,
+				color
+			}, [])
+		}
+	}
+`;
+
+export const projectBlogArticleSlugsQuery = groq`
+	*[_type == "projectBlog" && defined(slug.current)]{
+		"slug": slug.current
+	}
+`;
+
+export const dataBlogArticleSlugsQuery = groq`
+	*[_type == "dataBlog" && defined(slug.current)]{
+		"slug": slug.current
+	}
+`;
+
+export const hobbyBlogArticleSlugsQuery = groq`
+	*[_type == "hobbyBlog" && defined(slug.current)]{
+		"slug": slug.current
+	}
+`;
+
+export const projectBlogArticleQuery = groq`
+	*[_type == "projectBlog" && slug.current == $slug][0]{
+		_id,
+		title,
+		"slug": slug.current,
+		"publishedAt": coalesce(intro.publishedAt, _createdAt),
+		"excerpt": intro.excerpt,
+		"featuredImage": intro.featuredImage{
+			"url": asset->url
+		},
+		"body": body[]{
+			...,
+			_type == "image" => {
+				...,
+				"url": asset->url
+			}
+		},
+		"stack": coalesce(finalSection.projects[0]->skills[]->title, []),
+		"relatedEntries": coalesce(finalSection.projects[]->{
+			_id,
+			title
+		}, []),
+		"relatedSkills": coalesce(finalSection.skills[]->{
+			title,
+			category
+		}, []),
+		"footerContent": finalSection.footerContent
+	}
+`;
+
+export const dataBlogArticleQuery = groq`
+	*[_type == "dataBlog" && slug.current == $slug][0]{
+		_id,
+		title,
+		"slug": slug.current,
+		"publishedAt": coalesce(intro.publishedAt, _createdAt),
+		"excerpt": intro.excerpt,
+		"featuredImage": intro.featuredImage{
+			"url": asset->url
+		},
+		"body": body[]{
+			...,
+			_type == "image" => {
+				...,
+				"url": asset->url
+			}
+		},
+		"stack": [],
+		"relatedEntries": coalesce(finalSection.dataEntries[]->{
+			_id,
+			title
+		}, []),
+		"relatedSkills": coalesce(finalSection.skills[]->{
+			title,
+			category
+		}, []),
+		"footerContent": finalSection.footerContent
+	}
+`;
+
+export const hobbyBlogArticleQuery = groq`
+	*[_type == "hobbyBlog" && slug.current == $slug][0]{
+		_id,
+		title,
+		"slug": slug.current,
+		"publishedAt": coalesce(intro.publishedAt, _createdAt),
+		"excerpt": intro.excerpt,
+		"featuredImage": intro.featuredImage{
+			"url": asset->url
+		},
+		"body": body[]{
+			...,
+			_type == "image" => {
+				...,
+				"url": asset->url
+			}
+		},
+		"tags": coalesce(finalSection.hobbies[0]->tags[]->{
+			title,
+			color
+		}, []),
+		"relatedEntries": coalesce(finalSection.hobbies[]->{
+			_id,
+			title
+		}, []),
+		"relatedTags": coalesce(finalSection.tags[]->{
+			title,
+			color
+		}, []),
+		"footerContent": finalSection.footerContent
 	}
 `;

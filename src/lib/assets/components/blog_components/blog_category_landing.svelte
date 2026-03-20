@@ -16,9 +16,5 @@
 
 	<BlogRecentStrip post={data.mostRecentPost} />
 
-	<div class="blog_toc_grid">
-		{#each data.tocGroups as group}
-			<BlogTocGroup {group} />
-		{/each}
-	</div>
+	<BlogTocGroup group={data.tocGroup} />
 </div>

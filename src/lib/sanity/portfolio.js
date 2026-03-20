@@ -1,8 +1,14 @@
 import { createClient } from '@sanity/client';
 import fallbackContent from '$lib/assets/content.json';
 import { env as privateEnv } from '$env/dynamic/private';
-import { env } from '$env/dynamic/public';
 import { portfolioContentQuery } from '$lib/sanity/queries';
+import {
+	sanityApiVersion,
+	sanityDataset,
+	sanityPerspective,
+	sanityProjectId,
+	sanityUseCdn
+} from '$lib/sanity/config';
 
 const highlightSections = [
 	['languages', 'Languages'],
@@ -11,16 +17,14 @@ const highlightSections = [
 	['professionalSkills', 'Professional Skills']
 ];
 
-const jsonFallbackEnabled = env.DEBUG_ENABLE_JSON_FALLBACK === 'true';
+const jsonFallbackEnabled = privateEnv.DEBUG_ENABLE_JSON_FALLBACK === 'true';
 
 const sanityClient = createClient({
-	projectId: env.PUBLIC_SANITY_PROJECT_ID || 'zh3wqn4s',
-	dataset: env.PUBLIC_SANITY_DATASET || 'production',
-	apiVersion: env.PUBLIC_SANITY_API_VERSION || '2026-03-18',
-	useCdn: env.PUBLIC_SANITY_USE_CDN
-		? env.PUBLIC_SANITY_USE_CDN === 'true'
-		: false,
-	perspective: env.PUBLIC_SANITY_PERSPECTIVE || 'published',
+	projectId: sanityProjectId,
+	dataset: sanityDataset,
+	apiVersion: sanityApiVersion,
+	useCdn: sanityUseCdn,
+	perspective: sanityPerspective,
 	token: privateEnv.SANITY_READ_TOKEN || undefined
 });
 
@@ -159,6 +163,61 @@ function mapFeaturedData(entry) {
 }
 
 /**
+ * @param {any} entry
+ */
+function mapWorkEducationEntry(entry) {
+	return {
+		title: entry?.title,
+		timeRange: entry?.timeRange,
+		role: entry?.role,
+		description: entry?.description,
+		responsibilities: entry?.responsibilities ?? [],
+		linkLabel: entry?.linkLabel,
+		linkHref: entry?.linkHref
+	};
+}
+
+/**
+ * @param {any} workEducationContent
+ */
+function mapWorkEducationCategory(workEducationContent) {
+	const workEntries = workEducationContent?.workEntries ?? [];
+	const educationEntries = workEducationContent?.educationEntries ?? [];
+	const sections = [];
+
+	if (workEntries.length) {
+		sections.push({
+			title: workEducationContent?.workTitle || 'Work History',
+			items: workEntries.map(mapWorkEducationEntry)
+		});
+	}
+
+	if (educationEntries.length) {
+		sections.push({
+			title: workEducationContent?.educationTitle || 'Education',
+			items: educationEntries.map(mapWorkEducationEntry)
+		});
+	}
+
+	if (!sections.length) {
+		return null;
+	}
+
+	const hasReflection =
+		Boolean(workEducationContent?.reflectionTitle) || Boolean(workEducationContent?.reflectionBody);
+
+	return {
+		sections,
+		reflection: hasReflection
+			? {
+					title: workEducationContent?.reflectionTitle || 'Reflection',
+					body: workEducationContent?.reflectionBody || ''
+				}
+			: null
+	};
+}
+
+/**
  * @param {any} galleryContent
  */
 function mergeGalleryCategories(galleryContent) {
@@ -216,6 +275,7 @@ function mergeGalleryCategories(galleryContent) {
 export function mergePortfolioContent(sanityContent) {
 	const content = jsonFallbackEnabled ? cloneFallback() : createEmptyContent();
 	const portfolioContent = sanityContent?.portfolioContent;
+	const workEducationContent = sanityContent?.workEducationContent;
 
 	if (!sanityContent) {
 		return content;
@@ -267,6 +327,17 @@ export function mergePortfolioContent(sanityContent) {
 			categories: {
 				...content.projects.categories,
 				...sanityCategories
+			}
+		};
+	}
+
+	const workEducationCategory = mapWorkEducationCategory(workEducationContent);
+	if (workEducationCategory) {
+		content.projects = {
+			...content.projects,
+			categories: {
+				...content.projects.categories,
+				'Work & Education': workEducationCategory
 			}
 		};
 	}

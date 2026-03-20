@@ -10,9 +10,3 @@
 		<p>{paragraph}</p>
 	{/each}
 </div>
-
-<style lang="scss">
-	.tool_detail_page p {
-		padding-left: 0;
-	}
-</style>

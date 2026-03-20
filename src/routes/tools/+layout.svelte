@@ -1,4 +1,5 @@
 <script>
+	import '$lib/assets/area_styles/tools.scss';
 	import RouteSectionNav from '$lib/assets/components/route__components/route_section_nav.svelte';
 	import { page } from '$app/state';
 
@@ -34,10 +35,7 @@
 		return items;
 	});
 
-	const rightItems = [
-		{ href: '/blog', label: 'Blog' },
-		{ href: '/', label: 'Portfolio' }
-	];
+	const rightItems = [{ href: '/', label: 'Portfolio' }];
 </script>
 
 <div class="tools_shell section_shell">
