@@ -1,28 +1,8 @@
 <script>
 	import RichText from '$lib/assets/components/rich_text.svelte';
+	import TagPillList from '$lib/assets/components/tag_pill_list.svelte';
 
 	let { project, hideDivider = false } = $props();
-
-	/**
-	 * @param {string} hex
-	 */
-	function getContrastTextColor(hex) {
-		const normalized = hex.replace('#', '');
-		const fullHex =
-			normalized.length === 3
-				? normalized
-						.split('')
-						.map((char) => char + char)
-						.join('')
-				: normalized;
-
-		const red = parseInt(fullHex.slice(0, 2), 16);
-		const green = parseInt(fullHex.slice(2, 4), 16);
-		const blue = parseInt(fullHex.slice(4, 6), 16);
-		const luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
-
-		return luminance > 0.6 ? '#111111' : '#ffffff';
-	}
 </script>
 
 <li class:hide-divider={hideDivider} class="project_line">
@@ -32,18 +12,6 @@
 			<p class="project_time_range">{project.timeRange}</p>
 		{/if}
 	</div>
-	{#if project.tags?.length}
-		<ul class="project_tags">
-			{#each project.tags as [name, color]}
-				<li
-					class="project_tag"
-					style={`background-color: ${color}; color: ${getContrastTextColor(color)};`}
-				>
-					#{name}
-				</li>
-			{/each}
-		</ul>
-	{/if}
 	{#if project.role}
 		<p class="project_role">{project.role}</p>
 	{/if}
@@ -62,8 +30,17 @@
 			{/each}
 		</ul>
 	{/if}
+	{#if project.tags?.length}
+		<TagPillList tags={project.tags} listClass="project_tags" itemClass="project_tag" />
+	{/if}
 	{#if project.linkHref && project.linkLabel}
-		<a href={project.linkHref} class="live_site">{project.linkLabel}</a>
+		<a
+			href={project.linkHref}
+			class="live_site"
+			aria-label={`${project.linkLabel}: ${project.title}`}
+		>
+			{project.linkLabel}
+		</a>
 	{/if}
 </li>
 
@@ -104,20 +81,7 @@
 		}
 
 		.project_tags {
-			display: flex;
-			flex-flow: row wrap;
-			gap: 0.8rem;
 			margin-bottom: 1.2rem;
-			padding-left: 0;
-		}
-
-		.project_tag {
-			margin-bottom: 0;
-			padding: 0.4rem 1rem;
-			border-radius: 999px;
-			font-size: 1.4rem;
-			font-weight: 600;
-			list-style: none;
 		}
 
 		p {

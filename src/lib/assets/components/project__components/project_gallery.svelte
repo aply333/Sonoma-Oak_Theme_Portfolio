@@ -6,6 +6,12 @@
 	let activeCategory = $state();
 	let transitionsEnabled = $state(false);
 	let visibleCategory = $derived.by(() => content.categories[activeCategory] ?? []);
+	let activeTabId = $derived.by(() => `project-tab-desktop-${toId(activeCategory)}`);
+
+	/** @param {string | null | undefined} value */
+	function toId(value) {
+		return (value ?? 'current').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+	}
 
 	/** @param {string} category */
 	function setActiveCategory(category) {
@@ -31,6 +37,7 @@
 		class="grid_wrapper project_view"
 		role="tabpanel"
 		id="project-panel"
+		aria-labelledby={activeTabId}
 		aria-label={`${activeCategory} projects`}
 		tabindex="0"
 	>

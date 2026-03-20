@@ -30,23 +30,3 @@
 		</section>
 	{/if}
 </div>
-
-<style lang="scss">
-	.tool_category_page__links {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1.6rem;
-		align-items: start;
-	}
-
-	.tool_category_page__card p {
-		padding-left: 0;
-		color: var(--text-secondary);
-	}
-
-	@media (max-width: 768px) {
-		.tool_category_page__links {
-			grid-template-columns: 1fr;
-		}
-	}
-</style>

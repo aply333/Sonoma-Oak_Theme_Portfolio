@@ -1,0 +1,103 @@
+.markdown_content {
+	--markdown-max-width: var(--content-width);
+	--markdown-inline-space: 0;
+	--markdown-paragraph-gap: 1.2rem;
+	--markdown-list-gap: 1.2rem;
+	--markdown-list-indent: 2rem;
+	--markdown-item-gap: 0.6rem;
+	--markdown-blockquote-gap: 1.2rem;
+	--markdown-blockquote-padding: 1.6rem;
+	--markdown-blockquote-border: 0.3rem solid var(--border);
+	--markdown-heading-gap: 1.6rem;
+	--markdown-link-color: var(--primary);
+	--markdown-code-font: var(--font-mono);
+
+	max-width: var(--markdown-max-width);
+
+	:global(*:first-child) {
+		margin-top: 0;
+	}
+
+	:global(*:last-child) {
+		margin-bottom: 0;
+	}
+
+	:global(p),
+	:global(ul),
+	:global(ol),
+	:global(blockquote),
+	:global(pre) {
+		margin: 0 0 var(--markdown-paragraph-gap);
+	}
+
+	:global(p) {
+		padding-inline: var(--markdown-inline-space);
+		text-indent: 0;
+		line-height: 1.6;
+	}
+
+	:global(ul),
+	:global(ol) {
+		padding-left: var(--markdown-list-indent);
+		list-style: disc;
+	}
+
+	:global(ul) {
+		list-style: disc;
+	}
+
+	:global(ol) {
+		list-style: disc;
+	}
+
+	:global(li) {
+		margin: 0;
+	}
+
+	:global(li + li) {
+		margin-top: var(--markdown-item-gap);
+	}
+
+	:global(blockquote) {
+		padding: 0 0 0 var(--markdown-blockquote-padding);
+		border-left: var(--markdown-blockquote-border);
+		color: var(--text-secondary);
+	}
+
+	:global(h1),
+	:global(h2),
+	:global(h3),
+	:global(h4),
+	:global(h5),
+	:global(h6) {
+		margin: 0 0 var(--markdown-heading-gap);
+		line-height: 1.1;
+	}
+
+	:global(a) {
+		color: var(--markdown-link-color);
+		text-decoration: underline;
+		text-underline-offset: 0.16em;
+	}
+
+	:global(strong) {
+		font-weight: 700;
+	}
+
+	:global(em) {
+		font-style: italic;
+	}
+
+	:global(code),
+	:global(pre) {
+		font-family: var(--markdown-code-font);
+		font-size: 0.95em;
+	}
+
+	:global(pre) {
+		overflow-x: auto;
+		padding: 1.2rem;
+		border: 0.1rem solid var(--border);
+		background-color: color-mix(in srgb, var(--bg) 80%, var(--bg-secondary));
+	}
+}

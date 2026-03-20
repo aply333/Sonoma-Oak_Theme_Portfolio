@@ -12,12 +12,12 @@
 					href={item.href}
 					aria-current={page.url.pathname === item.href ? 'page' : undefined}
 					class:route_section_nav__link--active={page.url.pathname === item.href}
-					class="route_section_nav__link"
+					class="route_section_nav__link type_rule_label"
 				>
 					{item.label}
 				</a>
 			{:else}
-				<span class="route_section_nav__context">{item.label}</span>
+				<span class="route_section_nav__context eyebrow">{item.label}</span>
 			{/if}
 		{/each}
 	</div>
@@ -28,7 +28,7 @@
 				href={item.href}
 				aria-current={page.url.pathname === item.href ? 'page' : undefined}
 				class:route_section_nav__link--active={page.url.pathname === item.href}
-				class="route_section_nav__link"
+				class="route_section_nav__link type_rule_label"
 			>
 				{item.label}
 			</a>
@@ -57,16 +57,10 @@
 
 	.route_section_nav__link {
 		font-size: 1.4rem;
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
+		color: var(--primary);
 	}
 
 	.route_section_nav__context {
-		font-size: 1.2rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--text-secondary);
 		white-space: nowrap;
 	}
 

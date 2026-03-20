@@ -22,9 +22,35 @@
 		return `Andrei Portfolio, ${currentYear}.`;
 	});
 
-	const documentTitle = $derived.by(() =>
-		stripFormattedText(page.data?.content?.hero?.title || content.hero.title)
-	);
+	const documentTitle = $derived.by(() => {
+		const pathname = page.url.pathname;
+
+		if (pathname === '/blog') {
+			return 'Blog';
+		}
+
+		if (pathname.startsWith('/blog/')) {
+			const category = pathname.split('/')[2];
+
+			if (category) {
+				return `Blog | ${category.charAt(0).toUpperCase()}${category.slice(1)}`;
+			}
+		}
+
+		if (pathname === '/tools') {
+			return 'Tools';
+		}
+
+		if (pathname.startsWith('/tools/')) {
+			const category = pathname.split('/')[2];
+
+			if (category) {
+				return `Tools | ${category.charAt(0).toUpperCase()}${category.slice(1)}`;
+			}
+		}
+
+		return stripFormattedText(page.data?.content?.hero?.title || content.hero.title);
+	});
 </script>
 
 <svelte:head>
@@ -125,7 +151,7 @@
 
 	@media (min-width: 769px) {
 		.site-footer__blog-link {
-			padding-right: 2rem;
+			margin-right: 2rem;
 		}
 	}
 
