@@ -8,3 +8,5 @@
 @use './tag_pills.scss';
 @use './types.scss';
 @use './utilities.scss';
+
+@layer reset, tokens, base, utilities, components, areas;

@@ -7,6 +7,6 @@
 		<h1 class="title_1">{content.title}</h1>
 	</div>
 	{#each content.intro as paragraph}
-		<p>{paragraph}</p>
+		<p class="copy_inline">{paragraph}</p>
 	{/each}
 </div>

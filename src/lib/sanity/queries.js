@@ -266,13 +266,21 @@ export const projectBlogArticleQuery = groq`
 		"publishedAt": coalesce(intro.publishedAt, _createdAt),
 		"excerpt": intro.excerpt,
 		"featuredImage": intro.featuredImage{
-			"url": asset->url
+			alt,
+			caption,
+			"url": asset->url,
+			"asset": asset->{
+				url
+			}
 		},
 		"body": body[]{
 			...,
 			_type == "image" => {
 				...,
-				"url": asset->url
+				"url": asset->url,
+				"asset": asset->{
+					url
+				}
 			}
 		},
 		"stack": coalesce(finalSection.projects[0]->skills[]->title, []),
@@ -296,13 +304,21 @@ export const dataBlogArticleQuery = groq`
 		"publishedAt": coalesce(intro.publishedAt, _createdAt),
 		"excerpt": intro.excerpt,
 		"featuredImage": intro.featuredImage{
-			"url": asset->url
+			alt,
+			caption,
+			"url": asset->url,
+			"asset": asset->{
+				url
+			}
 		},
 		"body": body[]{
 			...,
 			_type == "image" => {
 				...,
-				"url": asset->url
+				"url": asset->url,
+				"asset": asset->{
+					url
+				}
 			}
 		},
 		"stack": [],
@@ -326,13 +342,21 @@ export const hobbyBlogArticleQuery = groq`
 		"publishedAt": coalesce(intro.publishedAt, _createdAt),
 		"excerpt": intro.excerpt,
 		"featuredImage": intro.featuredImage{
-			"url": asset->url
+			alt,
+			caption,
+			"url": asset->url,
+			"asset": asset->{
+				url
+			}
 		},
 		"body": body[]{
 			...,
 			_type == "image" => {
 				...,
-				"url": asset->url
+				"url": asset->url,
+				"asset": asset->{
+					url
+				}
 			}
 		},
 		"tags": coalesce(finalSection.hobbies[0]->tags[]->{

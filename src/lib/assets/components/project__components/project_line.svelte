@@ -36,7 +36,7 @@
 	{#if project.linkHref && project.linkLabel}
 		<a
 			href={project.linkHref}
-			class="live_site"
+			class="live_site link_default"
 			aria-label={`${project.linkLabel}: ${project.title}`}
 		>
 			{project.linkLabel}
@@ -78,10 +78,6 @@
 
 		.project_title {
 			margin-bottom: 0;
-		}
-
-		.project_tags {
-			margin-bottom: 1.2rem;
 		}
 
 		p {
@@ -132,6 +128,10 @@
 		.project_stack__item:not(:last-child)::after {
 			content: '|';
 			margin-left: 0.8rem;
+		}
+
+		.live_site {
+			color: var(--primary);
 		}
 	}
 

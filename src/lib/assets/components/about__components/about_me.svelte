@@ -10,7 +10,7 @@
 	<h2 class="title_2 about_heading">{content.title}</h2>
 	<div class="main_text fx-blur-frame fx-blur-frame--mobile-light-only">
 		{#each content.paragraphs as paragraph}
-			<p><RichText text={paragraph} /></p>
+			<p class="copy_inline"><RichText text={paragraph} /></p>
 		{/each}
 	</div>
 	<AboutHighlights highlights={content.highlights} />

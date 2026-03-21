@@ -20,10 +20,10 @@
 			<span>{post.metaDetail}</span>
 		{/if}
 	</div>
-	<p class="featured_post_card__summary">{post.summary}</p>
+	<p class="featured_post_card__summary copy_inline">{post.summary}</p>
 	<p class="featured_post_card__link_row">
 		<a
-			class="featured_post_card__link"
+			class="featured_post_card__link link_default"
 			href={post.href}
 			aria-label={`View featured article: ${post.title}`}
 		>
@@ -31,3 +31,9 @@
 		</a>
 	</p>
 </section>
+
+<style lang="scss">
+	.featured_post_card__link {
+		color: var(--primary);
+	}
+</style>

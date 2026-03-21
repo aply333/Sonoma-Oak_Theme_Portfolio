@@ -12,7 +12,7 @@
 		<h1 class="title_1">
 			<RichText text={data.content.hero.title} />
 		</h1>
-		<p class="subscript_1">
+		<p class="subscript_1 copy_inline">
 			<RichText text={data.content.hero.subtitle} />
 		</p>
 	</div>
@@ -124,7 +124,7 @@
 		}
 
 		.projects_grid {
-			padding-top: 14.4rem;
+			padding-top: 2.4rem;
 		}
 	}
 </style>

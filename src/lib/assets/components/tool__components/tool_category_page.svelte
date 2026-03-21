@@ -11,13 +11,13 @@
 	{#if content.tools?.length}
 		<section class="tool_category_page__links" aria-label={ariaLabel}>
 			{#each content.tools as item}
-				<a class="tool_category_page__card surface_card" href={item.href}>
+				<a class="tool_category_page__card surface_card link_default" href={item.href}>
 					<div class="tool_category_page__card_header surface_card__header">
 						<div class="tool_category_page__title_row title_row">
 							<h2 class="title_3">{item.title}</h2>
 						</div>
 					</div>
-					<p>{item.description}</p>
+					<p class="copy_inline">{item.description}</p>
 					{#if item.items?.length}
 						<ul class="card_list">
 							{#each item.items as listItem}

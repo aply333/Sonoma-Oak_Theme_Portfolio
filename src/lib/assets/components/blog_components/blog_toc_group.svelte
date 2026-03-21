@@ -25,7 +25,7 @@
 			{#each group.items as item}
 				<tr>
 					<td>
-						<a href={item.href}>{item.title}</a>
+						<a class="link_default" href={item.href}>{item.title}</a>
 					</td>
 					{#if group.showMiddleColumn ?? true}
 						<td>
