@@ -3,6 +3,10 @@
 		--local-section-gap: 2.4rem;
 	}
 
+	.blog_shell--article {
+		--local-section-gap: 2.4rem;
+	}
+
 	.blog_page__hero {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -143,6 +147,10 @@
 
 	@media (max-width: 768px) {
 		.blog_shell--landing {
+			--local-section-gap-mobile: 2.4rem;
+		}
+
+		.blog_shell--article {
 			--local-section-gap-mobile: 2.4rem;
 		}
 

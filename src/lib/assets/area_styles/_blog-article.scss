@@ -5,6 +5,10 @@
 		justify-items: center;
 	}
 
+	.blog_shell--article .blog_content {
+		padding-top: 3.6rem;
+	}
+
 	.blog_article p,
 	.blog_article h1,
 	.blog_article h2,
@@ -258,6 +262,10 @@
 }
 
 	@media (max-width: 768px) {
+		.blog_shell--article .blog_content {
+			padding-top: 2.4rem;
+		}
+
 		.blog_article__header {
 			width: 100vw;
 			margin-inline: calc(50% - 50vw);
