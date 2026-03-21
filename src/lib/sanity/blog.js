@@ -27,8 +27,7 @@ const longDateFormatter = new Intl.DateTimeFormat('en-US', {
 
 const shortDateFormatter = new Intl.DateTimeFormat('en-US', {
 	month: 'numeric',
-	day: 'numeric',
-	year: 'numeric'
+	day: 'numeric'
 });
 
 const markdown = new MarkdownIt({
@@ -87,13 +86,12 @@ export function formatShortDate(value) {
 	const parts = shortDateFormatter.formatToParts(date);
 	const month = parts.find((part) => part.type === 'month')?.value;
 	const day = parts.find((part) => part.type === 'day')?.value;
-	const year = parts.find((part) => part.type === 'year')?.value;
 
-	if (!month || !day || !year) {
+	if (!month || !day) {
 		return 'NEEDS WIRE';
 	}
 
-	return `${month}/${day} - ${year}`;
+	return `${month}/${day}`;
 }
 
 /**

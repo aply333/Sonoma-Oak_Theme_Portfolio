@@ -16,12 +16,17 @@
 
 	const navClassName = $derived.by(() => {
 		const segments = page.url.pathname.split('/').filter(Boolean);
-		return segments.length >= 3 ? 'route_section_nav--article' : '';
+		return segments.length >= 3 ? 'route_section_nav--article' : 'route_section_nav--landing';
+	});
+
+	const shellClassName = $derived.by(() => {
+		const segments = page.url.pathname.split('/').filter(Boolean);
+		return segments.length >= 3 ? 'blog_shell--article' : 'blog_shell--landing';
 	});
 </script>
 
-<div class="blog_shell section_shell">
-	<RouteSectionNav ariaLabel="Blog sections" {leftItems} {rightItems} className={navClassName} />
+<div class={`blog_shell section_shell ${shellClassName}`.trim()}>
+	<RouteSectionNav ariaLabel="Blog sections" {leftItems} {rightItems} className={navClassName} mobileMenu />
 
 	<section class="blog_content section_content">
 		{@render children()}

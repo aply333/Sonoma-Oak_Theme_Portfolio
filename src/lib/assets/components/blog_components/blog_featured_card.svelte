@@ -12,14 +12,14 @@
 		<span>{post.category}</span>
 		<span aria-hidden="true">|</span>
 		<span>{post.datePosted}</span>
-		{#if post.tags?.length}
-			<span aria-hidden="true">|</span>
-			<TagPillList tags={post.tags} listClass="featured_post_card__tags" itemClass="featured_post_card__tag" />
-		{:else if post.metaDetail}
+		{#if post.metaDetail && !post.tags?.length}
 			<span aria-hidden="true">|</span>
 			<span>{post.metaDetail}</span>
 		{/if}
 	</div>
+	{#if post.tags?.length}
+		<TagPillList tags={post.tags} listClass="featured_post_card__tags" itemClass="featured_post_card__tag" />
+	{/if}
 	<p class="featured_post_card__summary copy_inline">{post.summary}</p>
 	<p class="featured_post_card__link_row">
 		<a

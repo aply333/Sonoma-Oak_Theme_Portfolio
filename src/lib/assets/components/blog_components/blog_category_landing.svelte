@@ -6,13 +6,15 @@
 	let { data } = $props();
 </script>
 
-	<div class="blog_page page_stack">
-	<div class="blog_page__header page_header">
-		<h1 class="title_1">{data.pageTitle}</h1>
-		<div class="blog_page__intro page_intro prose prose--intro">{@html data.pageIntroHtml}</div>
-	</div>
+<div class="blog_page page_stack">
+	<div class="blog_page__hero">
+		<div class="blog_page__header page_header">
+			<h1 class="title_1">{data.pageTitle}</h1>
+			<div class="blog_page__intro page_intro prose prose--intro">{@html data.pageIntroHtml}</div>
+		</div>
 
-	<BlogFeaturedCard post={data.featuredPost} />
+		<BlogFeaturedCard post={data.featuredPost} />
+	</div>
 
 	<BlogRecentStrip post={data.mostRecentPost} />
 
