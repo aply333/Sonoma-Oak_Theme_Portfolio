@@ -78,6 +78,7 @@
 
 		.project_title {
 			margin-bottom: 0;
+			font-weight: 550;
 		}
 
 		p {

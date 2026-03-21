@@ -12,11 +12,18 @@
 		{/if}
 	</div>
 	<table class="blog_toc_table">
+		<colgroup>
+			<col class="blog_toc_table__title-col" />
+			{#if group.showMiddleColumn ?? true}
+				<col class="blog_toc_table__middle-col" />
+			{/if}
+			<col class="blog_toc_table__date-col" />
+		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col">Title</th>
 				{#if group.showMiddleColumn ?? true}
-					<th scope="col">{group.middleColumnTitle}</th>
+					<th class="blog_toc_table__middle-column" scope="col">{group.middleColumnTitle}</th>
 				{/if}
 				<th class="blog_toc_table__date-column" scope="col">Date Posted</th>
 			</tr>
@@ -28,7 +35,7 @@
 						<a class="link_default" href={item.href}>{item.title}</a>
 					</td>
 					{#if group.showMiddleColumn ?? true}
-						<td>
+						<td class="blog_toc_table__middle-column">
 							<BlogTocMiddleCell {item} />
 						</td>
 					{/if}

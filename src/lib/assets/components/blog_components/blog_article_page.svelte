@@ -1,6 +1,7 @@
 <script>
 	import { PortableText } from '@portabletext/svelte';
 	import BlogArticleHeader from '$lib/assets/components/blog_components/blog_article_header.svelte';
+	import BlogBubbleText from '$lib/assets/components/blog_components/blog_bubble_text.svelte';
 	import BlogArticleRelated from '$lib/assets/components/blog_components/blog_article_related.svelte';
 	import BlogPortableImage from '$lib/assets/components/blog_components/blog_portable_image.svelte';
 	import BlogSectionBreak from '$lib/assets/components/blog_components/blog_section_break.svelte';
@@ -10,7 +11,10 @@
 	const portableComponents = {
 		types: {
 			image: BlogPortableImage,
-			sectionBreak: BlogSectionBreak
+			sectionBreak: BlogSectionBreak,
+			bubbleText: BlogBubbleText,
+			chainedStatements: BlogBubbleText,
+			innerMonologue: BlogBubbleText
 		}
 	};
 </script>

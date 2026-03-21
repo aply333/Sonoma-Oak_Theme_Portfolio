@@ -258,9 +258,23 @@
 }
 
 	@media (max-width: 768px) {
+		.blog_article__header {
+			width: 100vw;
+			margin-inline: calc(50% - 50vw);
+			margin-bottom: 3.2rem;
+		}
+
+		.blog_article__header_inner {
+			padding-inline: var(--inline-space);
+		}
+
 		.blog_article__header::before {
 			inset: -2.4rem 0;
-			border-radius: 1.8rem;
+			border-radius: 0;
+		}
+
+		.blog_article__excerpt {
+			padding-inline: 0;
 		}
 
 		.blog_article__body {
