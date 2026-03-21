@@ -18,7 +18,7 @@
 		{#if article.relatedMeta?.length}
 			<div class="blog_article__related_group">
 				<p class="eyebrow">{article.relatedMetaLabel}</p>
-				<ul class="blog_article__related_meta">
+				<ul class="blog_article__related_meta list_reset">
 					{#each article.relatedMeta as item}
 						<li>{item}</li>
 					{/each}

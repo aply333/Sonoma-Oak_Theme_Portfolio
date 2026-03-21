@@ -31,7 +31,7 @@
 
 <div class="grid_wrapper project_gallery">
 	<h2 class="title_2">{content.title}</h2>
-	<p class="intro_text">{content.intro}</p>
+	<p class="intro_text copy_inline">{content.intro}</p>
 	<ProjectNav nav={content.nav} {activeCategory} onSelect={setActiveCategory} />
 	<div
 		class="grid_wrapper project_view"

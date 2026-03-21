@@ -4,7 +4,7 @@
 	let { tags = [], listClass = '', itemClass = '', prefix = '#' } = $props();
 </script>
 
-<ul class={`tag_pill_list ${listClass}`.trim()}>
+<ul class={`tag_pill_list list_reset ${listClass}`.trim()}>
 	{#each tags as [name, color]}
 		<li
 			class={`tag_pill ${itemClass}`.trim()}

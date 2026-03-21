@@ -27,11 +27,11 @@
 </script>
 
 {#if enableTransition}
-	<ul class="project_list" transition:fade={{ duration: 180 }}>
+	<ul class="project_list list_reset" transition:fade={{ duration: 180 }}>
 		<ProjectCategoryList {category} {resolveProject} />
 	</ul>
 {:else}
-	<ul class="project_list">
+	<ul class="project_list list_reset">
 		<ProjectCategoryList {category} {resolveProject} />
 	</ul>
 {/if}

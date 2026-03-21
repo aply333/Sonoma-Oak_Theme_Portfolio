@@ -12,7 +12,7 @@
 					href={item.href}
 					aria-current={page.url.pathname === item.href ? 'page' : undefined}
 					class:route_section_nav__link--active={page.url.pathname === item.href}
-					class="route_section_nav__link type_rule_label"
+					class="route_section_nav__link type_rule_label link_default"
 				>
 					{item.label}
 				</a>
@@ -28,7 +28,7 @@
 				href={item.href}
 				aria-current={page.url.pathname === item.href ? 'page' : undefined}
 				class:route_section_nav__link--active={page.url.pathname === item.href}
-				class="route_section_nav__link type_rule_label"
+				class="route_section_nav__link type_rule_label link_default"
 			>
 				{item.label}
 			</a>
@@ -67,6 +67,10 @@
 	.route_section_nav__link--active::after {
 		transform: scaleX(1);
 		opacity: 1;
+	}
+
+	.route_section_nav--article {
+		border-bottom: 0;
 	}
 
 	@media (max-width: 768px) {

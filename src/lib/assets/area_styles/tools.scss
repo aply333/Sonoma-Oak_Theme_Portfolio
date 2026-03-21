@@ -1,55 +1,51 @@
-.tools_shell {
-}
-
-.tools_content {
-}
-
-.tool_category_page__links {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 1.6rem;
-	align-items: start;
-}
-
-.tool_category_page__card p,
-.tool_detail_page p {
-	padding-left: 0;
-}
-
-.tool_category_page__card p {
-	color: var(--text-secondary);
-}
-
-.tool_category_page__card {
-	cursor: pointer;
-}
-
-.tool_category_page__card h2 {
-	transition: color 180ms ease;
-}
-
-.tool_category_page__card,
-.tool_category_page__card:hover,
-.tool_category_page__card:focus-visible,
-.tool_category_page__card :is(h2, p, li),
-.tool_category_page__card:hover :is(h2, p, li),
-.tool_category_page__card:focus-visible :is(h2, p, li) {
-	text-decoration: none;
-}
-
-.tool_category_page__card::after,
-.tool_category_page__card:hover::after,
-.tool_category_page__card:focus-visible::after {
-	content: none;
-}
-
-.tool_category_page__card:hover h2,
-.tool_category_page__card:focus-visible h2 {
-	color: var(--primary);
-}
-
-@media (max-width: 768px) {
+@layer areas {
 	.tool_category_page__links {
-		grid-template-columns: 1fr;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.6rem;
+		align-items: start;
+	}
+
+	.tool_category_page__card p,
+	.tool_detail_page p {
+		padding-left: 0;
+	}
+
+	.tool_category_page__card p {
+		color: var(--text-secondary);
+	}
+
+	.tool_category_page__card {
+		cursor: pointer;
+	}
+
+	.tool_category_page__card h2 {
+		transition: color 180ms ease;
+	}
+
+	.tool_category_page__card,
+	.tool_category_page__card:hover,
+	.tool_category_page__card:focus-visible,
+	.tool_category_page__card :is(h2, p, li),
+	.tool_category_page__card:hover :is(h2, p, li),
+	.tool_category_page__card:focus-visible :is(h2, p, li) {
+		text-decoration: none;
+	}
+
+	.tool_category_page__card::after,
+	.tool_category_page__card:hover::after,
+	.tool_category_page__card:focus-visible::after {
+		content: none;
+	}
+
+	.tool_category_page__card:hover h2,
+	.tool_category_page__card:focus-visible h2 {
+		color: var(--primary);
+	}
+
+	@media (max-width: 768px) {
+		.tool_category_page__links {
+			grid-template-columns: 1fr;
+		}
 	}
 }

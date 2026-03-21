@@ -25,7 +25,7 @@
 <nav class="about_links" aria-label="Profile and resume links">
 	{#each links as link}
 		<a
-			class="about_link"
+			class="about_link link_default"
 			href={link.href}
 			target={isExternalLink(link.href) ? '_blank' : undefined}
 			rel={isExternalLink(link.href) ? 'noreferrer' : undefined}
@@ -54,6 +54,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.8rem;
+		color: var(--primary);
 	}
 
 	.about_link__icon {
