@@ -1,140 +1,138 @@
 # Portfolio
 
-## Quick Notes
+## Overview
 
-This project is a SvelteKit portfolio with three main content areas:
+This is a SvelteKit portfolio with three primary areas:
 
-- Main portfolio at `/`
-- Blog section at `/blog`
-- Tools hub at `/tools`
+- `/` portfolio landing and project gallery
+- `/blog` blog landing, category pages, and article routes
+- `/tools` tools landing, category pages, and tool detail routes
 
-Content is split between a global portfolio data file and route-local JSON files for tools content:
+Content currently comes from two sources:
 
-- Portfolio content: [`src/lib/assets/content.json`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/content.json)
-- Tools landing content: [`src/routes/tools/tools_content.json`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/tools_content.json)
-- Category content: [`src/routes/tools/collection/collection_content.json`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/collection/collection_content.json), [`src/routes/tools/utilities/utilities_content.json`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/utilities/utilities_content.json), [`src/routes/tools/creative/creative_content.json`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/creative/creative_content.json)
-- Tool content: [`src/routes/tools/collection/agr-and-target/agr_target_content.json`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/collection/agr-and-target/agr_target_content.json), [`src/routes/tools/utilities/content-sync/content_sync_content.json`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/utilities/content-sync/content_sync_content.json)
+- Sanity-backed portfolio and blog content
+- route-local JSON content for tools
 
-Layout and presentation are handled through reusable Svelte components and shared SCSS.
+## Structure
 
-## Major Components
+Key route areas:
 
-- **About Me** [`portfolio/src/lib/assets/components/about_me.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/about_me.svelte): renders the About section text, highlights, and social links.
-- **About Highlights** [`portfolio/src/lib/assets/components/about_highlights.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/about_highlights.svelte): handles the grouped skills/highlights lists.
-- **About Links** [`portfolio/src/lib/assets/components/about_links.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/about_links.svelte): renders the centered LinkedIn, GitHub, and Resume links.
-- **Project Gallery** [`portfolio/src/lib/assets/components/project_gallery.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/project_gallery.svelte): owns project category state and the top-level gallery structure.
-- **Project Nav** [`portfolio/src/lib/assets/components/project_nav.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/project_nav.svelte): category/tab button row for the gallery.
-- **Project Category Content** [`portfolio/src/lib/assets/components/project_category_content.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/project_category_content.svelte): handles category-level rendering and transition wrapping.
-- **Project Category List** [`portfolio/src/lib/assets/components/project_category_list.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/project_category_list.svelte): renders section headers, line items, intro blocks, and reflection blocks for a category.
-- **Project Line** [`portfolio/src/lib/assets/components/project_line.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/project_line.svelte): individual project/work/education line item. Supports optional `timeRange`, `role`, `responsibilities`, `stack`, and hobby `tags`.
-- **Project Section Header** [`portfolio/src/lib/assets/components/project_section_header.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/project_section_header.svelte): reusable titled section break.
-- **Project Text Block** [`portfolio/src/lib/assets/components/project_text_block.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/project_text_block.svelte): reusable centered text block used for intro/reflection content.
-- **Rich Text** [`portfolio/src/lib/assets/components/rich_text.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/rich_text.svelte): parses custom inline text markers from JSON content.
-- **Route Section Nav** [`portfolio/src/lib/assets/components/route_section_nav.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/route_section_nav.svelte): shared top nav used by blog/tools route shells.
-- **Tool Category Page** [`src/lib/assets/components/tool_category_page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/tool_category_page.svelte): shared renderer for tools category index pages.
-- **Tool Detail Page** [`src/lib/assets/components/tool_detail_page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/tool_detail_page.svelte): shared renderer for simple tool detail pages.
-- **Form Components** [`src/lib/assets/components/form_components`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/form_components): reusable input primitives used by tool forms.
+- `src/routes/+page.svelte` portfolio landing page
+- `src/routes/blog` blog landing, category pages, and article routes
+- `src/routes/tools` tools landing, category pages, and tool routes
 
-## Routes
+Key shared component areas:
 
-- **Root Layout** [`portfolio/src/routes/+layout.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/+layout.svelte): global app shell, font setup, main container, and sticky footer behavior.
-- **Home Page** [`portfolio/src/routes/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/+page.svelte): main landing page for the portfolio.
-- **Blog Layout** [`portfolio/src/routes/blog/+layout.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/blog/+layout.svelte): blog route shell with section navigation.
-- **Blog Home** [`portfolio/src/routes/blog/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/blog/+page.svelte): blog home.
-- **Blog Data Page** [`portfolio/src/routes/blog/data/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/blog/data/+page.svelte): data section page.
-- **Blog Hobbies Page** [`portfolio/src/routes/blog/hobbies/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/blog/hobbies/+page.svelte): hobbies section page.
-- **Blog Projects Page** [`portfolio/src/routes/blog/projects/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/blog/projects/+page.svelte): projects section page.
-- **Tools Layout** [`portfolio/src/routes/tools/+layout.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/+layout.svelte): tools route shell with top navigation.
-- **Tools Page** [`portfolio/src/routes/tools/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/+page.svelte): tools landing page and category link tree.
-- **Collection Category** [`src/routes/tools/collection/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/collection/+page.svelte): collection category index.
-- **Utilities Category** [`src/routes/tools/utilities/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/utilities/+page.svelte): utilities category index.
-- **Creative Category** [`src/routes/tools/creative/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/creative/+page.svelte): creative category index.
-- **AGR / Distress Tool** [`src/routes/tools/collection/agr-and-target/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/collection/agr-and-target/+page.svelte): collection tool page with JSON-driven form content.
-- **Content Sync Placeholder** [`src/routes/tools/utilities/content-sync/+page.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/routes/tools/utilities/content-sync/+page.svelte): placeholder utilities tool page.
+- `src/lib/assets/components/about__components`
+- `src/lib/assets/components/project__components`
+- `src/lib/assets/components/blog_components`
+- `src/lib/assets/components/tool__components`
+- `src/lib/assets/components/form__components`
+- `src/lib/assets/components/route__components`
 
-## Tools Structure
+Key content / data files:
 
-The tools area now follows a consistent pattern:
+- `src/lib/sanity/portfolio.js` portfolio content loading
+- `src/lib/sanity/blog.js` blog content loading and mapping
+- `src/lib/sanity/queries.js` GROQ queries
+- `src/lib/assets/content.json` portfolio fallback content
+- `src/routes/tools/**/**_content.json` tool and category content
 
-- Each category lives at `/tools/<category>`
-- Each category page reads from a local `<category>_content.json`
-- Each tool detail page reads from a local `<tool>_content.json`
-- Repeated category/detail page markup is centralized in shared components
+## Styling Map
 
-Current categories:
+Global style entry:
 
-- `collection`
-- `utilities`
-- `creative`
+- `src/lib/assets/global_styles/globals.scss`
 
-## Custom Breakout System
+Global style layers:
 
-Long-form text is stored in JSON and rendered through [`portfolio/src/lib/assets/components/rich_text.svelte`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/components/rich_text.svelte).
+- `reset.scss` base reset rules
+- `tokens.scss` theme variables, spacing, color, sizing tokens
+- `layout.scss` shared layout primitives such as `page_stack`, `page_header`, `section_shell`
+- `types.scss` typography scale and reusable type classes
+- `surfaces.scss` shared card/surface patterns
+- `markdown.scss` shared markdown rendering styles
+- `forms.scss` form control styling
+- `section_rules.scss` shared section/rule primitives
+- `tag_pills.scss` shared tag pill primitives
+- `utilities.scss` utility-level styling helpers
 
-Supported inline markers:
+Route-scoped / area styles:
 
-- `*i/text/i*`: renders italic text
-- `*ic/text/ic*`: renders italic text with the global emphasis color
+- `src/lib/assets/area_styles/blog.scss` blog-only layout and component styling
+- `src/lib/assets/area_styles/tools.scss` tools-only layout and component styling
 
-The related global utility classes live in [`portfolio/src/lib/assets/global_styles/types.scss`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/global_styles/types.scss):
+Primary component areas still using local `<style>` blocks:
 
-- `.type_italic`
-- `.type_emphasis`
+- `src/lib/assets/components/about__components`
+- `src/lib/assets/components/project__components`
+- `src/lib/assets/components/route__components`
+- some route-level pages under `src/routes`
 
-## Styling Notes
+Styling approach:
 
-- Global variables and layout tokens live in [`portfolio/src/lib/assets/global_styles/globals.scss`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/global_styles/globals.scss).
-- Typography rules and reusable text classes live in [`portfolio/src/lib/assets/global_styles/types.scss`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/global_styles/types.scss).
-- Form rules and mobile-friendly control defaults live in [`src/lib/assets/global_styles/forms.scss`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/global_styles/forms.scss).
-- Global reset rules live in [`portfolio/src/lib/assets/global_styles/reset.scss`](/Users/aply/Desktop/Portfolio%20Work/portfolio/src/lib/assets/global_styles/reset.scss).
+- shared primitives go in `global_styles`
+- route-area styling goes in `area_styles`
+- component-local styling stays in the component when it is truly specific to that component
+- portfolio visual language should act as the baseline when aligning blog/tools styling
 
-Additional styling behaviors now included globally:
+## Development
 
-- shared page-shell utility classes
-- shared surface card styling for tool/category cards
-- shared hover treatment for linked cards
-- shared card title divider treatment
-- dynamic footer labeling by section (`Portfolio`, `Blog`, `Tools`)
-
-# sv
-
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+Install dependencies:
 
 ```sh
-# create a new project
-npx sv create my-app
+npm install
 ```
 
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.12.7 create --template minimal --types jsdoc --add prettier --install npm portfolio
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Run the dev server:
 
 ```sh
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Run checks:
 
-To create a production version of your app:
+```sh
+npm run check
+```
+
+Format:
+
+```sh
+npm run format
+```
+
+## Build
+
+Create a production build:
 
 ```sh
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Preview the production build:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```sh
+npm run preview
+```
+
+## Notes
+
+- The app is set up toward static prerendering.
+- Blog article routes are scaffolded as static entries.
+- Tools content is currently JSON-driven.
+- Sanity is the source of truth for portfolio and blog content.
+
+## Changelog
+
+### Current state
+
+- Wired blog root, blog category landings, and blog article routes to Sanity
+- Added blog, project blog, data blog, and hobby blog landing-content singletons in the Studio
+- Added static blog article route scaffolding for project, data, and hobby posts
+- Refactored blog/category/article loading into shared Sanity helpers
+- Moved blog-only and tools-only styles into route-scoped area styles
+- Aligned blog cards and page shells more closely with the portfolio baseline
+- Added shared tag-pill and section-rule primitives
+- Improved portfolio accessibility for project tab labeling and project link naming
+- Kept tools routes as lightweight static pages with shared category/detail renderers

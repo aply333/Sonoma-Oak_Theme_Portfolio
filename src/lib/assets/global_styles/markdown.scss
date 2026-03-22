@@ -1,0 +1,145 @@
+@layer base {
+	.prose {
+	--markdown-max-width: var(--content-width);
+	--markdown-inline-space: 0;
+	--markdown-paragraph-gap: 1.2rem;
+	--markdown-list-indent: 2rem;
+	--markdown-item-gap: 0.6rem;
+	--markdown-blockquote-gap: 1.2rem;
+	--markdown-blockquote-padding: 1.6rem;
+	--markdown-blockquote-border: 0.3rem solid var(--border);
+	--markdown-heading-gap: 1.6rem;
+	--markdown-link-color: var(--primary);
+	--markdown-code-font: var(--font-mono);
+
+	max-width: var(--markdown-max-width);
+
+	*:first-child {
+		margin-top: 0;
+	}
+
+	*:last-child {
+		margin-bottom: 0;
+	}
+
+	p,
+	ul,
+	ol,
+	blockquote,
+	pre {
+		margin: 0 0 var(--markdown-paragraph-gap);
+	}
+
+	p {
+		padding-inline: var(--markdown-inline-space);
+		text-indent: 0;
+		line-height: 1.6;
+	}
+
+	ul,
+	ol {
+		padding-left: var(--markdown-list-indent);
+		list-style: disc;
+	}
+
+	ul {
+		list-style: disc;
+	}
+
+	ol {
+		list-style: decimal;
+	}
+
+	li {
+		margin: 0;
+	}
+
+	li + li {
+		margin-top: var(--markdown-item-gap);
+	}
+
+	blockquote {
+		padding: 0 0 0 var(--markdown-blockquote-padding);
+		border-left: var(--markdown-blockquote-border);
+		color: var(--text-secondary);
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin: 0 0 var(--markdown-heading-gap);
+		line-height: 1.1;
+	}
+
+	h2 {
+		font-size: clamp(3rem, 3.4vw, 4.2rem);
+	}
+
+	h3 {
+		font-size: clamp(2.2rem, 2.3vw, 2.8rem);
+	}
+
+	a {
+		color: var(--markdown-link-color);
+		text-decoration: underline;
+		text-underline-offset: 0.16em;
+	}
+
+	strong {
+		font-weight: 700;
+	}
+
+	em {
+		font-style: italic;
+	}
+
+	code,
+	pre {
+		font-family: var(--markdown-code-font);
+		font-size: 0.95em;
+	}
+
+	pre {
+		overflow-x: auto;
+		padding: 1.2rem;
+		border: 0.1rem solid var(--border);
+		background-color: color-mix(in srgb, var(--bg) 80%, var(--bg-secondary));
+	}
+	}
+
+	.prose--compact {
+		--markdown-paragraph-gap: 1.2rem;
+		--markdown-item-gap: 0.6rem;
+	}
+
+	.prose--intro {
+		--markdown-max-width: 76rem;
+		--markdown-inline-space: 0;
+		--markdown-paragraph-gap: 1.2rem;
+	}
+
+	.prose--article-excerpt {
+		--markdown-max-width: 81.6rem;
+		--markdown-inline-space: 0;
+		--markdown-paragraph-gap: 1rem;
+	}
+
+	.prose--article-body {
+		--markdown-max-width: 86.4rem;
+		--markdown-inline-space: 0;
+		--markdown-paragraph-gap: 1.8rem;
+		--markdown-item-gap: 0.8rem;
+		--markdown-heading-gap: 1.8rem;
+		--markdown-blockquote-gap: 2rem;
+		--markdown-blockquote-padding: 1.8rem;
+		--markdown-blockquote-border: 0.3rem solid var(--primary);
+	}
+
+	.prose--article-footer {
+		--markdown-max-width: 86.4rem;
+		--markdown-inline-space: 0;
+	}
+}

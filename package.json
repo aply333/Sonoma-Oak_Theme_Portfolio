@@ -15,7 +15,8 @@
 	},
 	"devDependencies": {
 		"@poppanator/sveltekit-svg": "^6.0.1",
-		"@sveltejs/adapter-auto": "^7.0.0",
+		"@portabletext/svelte": "^3.0.1",
+		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/kit": "^2.50.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"prettier": "^3.8.1",
@@ -29,7 +30,10 @@
 		"vite": "^7.3.1"
 	},
 	"dependencies": {
+		"@sanity/client": "^7.17.0",
 		"@vercel/analytics": "^2.0.1",
-		"@vercel/speed-insights": "^2.0.0"
+		"@vercel/speed-insights": "^2.0.0",
+		"groq": "^5.17.1",
+		"markdown-it": "^14.1.1"
 	}
 }

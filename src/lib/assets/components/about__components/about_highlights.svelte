@@ -6,7 +6,7 @@
 	{#each highlights as section}
 		<div class="skill_set fx-blur-frame fx-blur-frame--tablet-down">
 			<h3 class="title_3 highlight__title">{section.title}</h3>
-			<ul class="skill_list">
+			<ul class="skill_list list_reset">
 				{#each section.items as item}
 					<li class="skill_item">{item}</li>
 				{/each}

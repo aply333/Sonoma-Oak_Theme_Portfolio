@@ -2,30 +2,19 @@
 	let { title } = $props();
 </script>
 
-<li class="project_section_break">
-	<h3 class="project_section_break__title">{title}</h3>
-	<span class="project_section_break__line" aria-hidden="true"></span>
+<li class="project_section_break section_rule">
+	<h3 class="project_section_break__title section_rule__label">{title}</h3>
+	<span class="project_section_break__line section_rule__line" aria-hidden="true"></span>
 </li>
 
 <style lang="scss">
 	.project_section_break {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1.2rem;
-		padding: 2.4rem 0 1.6rem;
-	}
-
-	.project_section_break__line {
-		width: 80%;
-		border-top: 0.1rem solid var(--border);
-	}
-
-	.project_section_break__title {
-		color: var(--text-secondary);
-		font-size: 1.4rem;
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		--section-rule-align: center;
+		--section-rule-gap: 1.2rem;
+		--section-rule-padding: 2.4rem 0 1.6rem;
+		--section-rule-width: 80%;
+		--section-rule-thickness: 0.1rem;
+		--section-rule-border: 0.1rem solid var(--border);
+		--section-rule-label-size: 1.4rem;
 	}
 </style>

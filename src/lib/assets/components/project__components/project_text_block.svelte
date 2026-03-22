@@ -1,5 +1,5 @@
 <script>
-	import RichText from '$lib/assets/components/rich_text.svelte';
+	import MarkdownBlock from '$lib/assets/components/markdown_block.svelte';
 
 	let { title, body } = $props();
 </script>
@@ -10,7 +10,9 @@
 		<h3 class="project_reflection__title">{title}</h3>
 		<span class="project_reflection__line" aria-hidden="true"></span>
 	</div>
-	<p class="project_reflection__body"><RichText text={body} /></p>
+	<div class="project_reflection__body">
+		<MarkdownBlock content={body} />
+	</div>
 </li>
 
 <style lang="scss">

@@ -2,6 +2,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import "$lib/assets/global_styles/globals.scss";
 	import content from '$lib/assets/content.json';
+	import { stripFormattedText } from '$lib/utils/markdown';
 	import { page } from '$app/state';
 
 	let { children } = $props();
@@ -21,7 +22,35 @@
 		return `Andrei Portfolio, ${currentYear}.`;
 	});
 
-	const documentTitle = $derived.by(() => content.hero.title.replace(/\*[icb]+\/(.*?)\/[icb]+\*/g, '$1'));
+	const documentTitle = $derived.by(() => {
+		const pathname = page.url.pathname;
+
+		if (pathname === '/blog') {
+			return 'Blog';
+		}
+
+		if (pathname.startsWith('/blog/')) {
+			const category = pathname.split('/')[2];
+
+			if (category) {
+				return `Blog | ${category.charAt(0).toUpperCase()}${category.slice(1)}`;
+			}
+		}
+
+		if (pathname === '/tools') {
+			return 'Tools';
+		}
+
+		if (pathname.startsWith('/tools/')) {
+			const category = pathname.split('/')[2];
+
+			if (category) {
+				return `Tools | ${category.charAt(0).toUpperCase()}${category.slice(1)}`;
+			}
+		}
+
+		return stripFormattedText(page.data?.content?.hero?.title || content.hero.title);
+	});
 </script>
 
 <svelte:head>
@@ -29,6 +58,7 @@
 	<link rel="icon" href={favicon} type="image/svg+xml" />
 	<link rel="icon" href="/favicon-64.png" sizes="64x64" type="image/png" />
 	<link rel="icon" href="/favicon-128.png" sizes="128x128" type="image/png" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link
@@ -47,8 +77,8 @@
 	<footer class="grid_wrapper site-footer">
 		<p class="site-footer__text">{footerLabel}</p>
 		<nav class="site-footer__nav" aria-label="Footer">
-			<a href="/tools">Tools</a>
-			<a href="/blog">Blog</a>
+			<a class="site-footer__link" href="/tools">Tools</a>
+			<a class="site-footer__link site-footer__blog-link" href="/blog">Blog</a>
 		</nav>
 	</footer>
 </div>
@@ -104,6 +134,7 @@
 		padding: 0;
 		color: var(--text);
 		font-size: 1.3rem;
+		line-height: 1.2;
 		letter-spacing: 0.04em;
 		text-align: center;
 	}
@@ -111,13 +142,60 @@
 	.site-footer__nav {
 		grid-column: 9 / 10;
 		display: flex;
-		align-items: center;
+		align-items: baseline;
 		justify-content: flex-end;
-		gap: 1.6rem;
+		gap: 0.8rem;
 	}
 
-	.site-footer__nav a {
+	.site-footer__link {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.4rem 0.6rem;
+		margin: -0.4rem -0.6rem;
 		color: var(--text);
+		font-size: 1.3rem;
+		line-height: 1.2;
+		letter-spacing: 0.04em;
+		text-decoration: none;
+		border-radius: 0.4rem;
+		transition: color 180ms ease;
+	}
+
+	.site-footer__link::after {
+		content: '';
+		position: absolute;
+		left: 0.6rem;
+		right: 0.6rem;
+		bottom: 0.1rem;
+		border-bottom: 0.1rem solid currentColor;
+		opacity: 0.45;
+		transform: scaleX(0.82);
+		transform-origin: center;
+		transition: opacity 180ms ease, transform 180ms ease;
+	}
+
+	.site-footer__link:hover::after,
+	.site-footer__link:focus-visible::after {
+		opacity: 0.85;
+		transform: scaleX(1);
+	}
+
+	.site-footer__link:hover,
+	.site-footer__link:focus-visible {
+		color: var(--primary);
+	}
+
+	.site-footer__link:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--primary) 18%, transparent);
+	}
+
+	@media (min-width: 769px) {
+		.site-footer__blog-link {
+			margin-right: 2rem;
+		}
 	}
 
 	@media (max-width: 768px) {

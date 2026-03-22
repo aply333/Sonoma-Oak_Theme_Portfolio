@@ -1,28 +1,20 @@
 <script>
 	import RichText from '$lib/assets/components/rich_text.svelte';
+	import TagPillList from '$lib/assets/components/tag_pill_list.svelte';
 
 	let { project, hideDivider = false } = $props();
 
-	/**
-	 * @param {string} hex
-	 */
-	function getContrastTextColor(hex) {
-		const normalized = hex.replace('#', '');
-		const fullHex =
-			normalized.length === 3
-				? normalized
-						.split('')
-						.map((char) => char + char)
-						.join('')
-				: normalized;
+	/** @typedef {{ label?: string, href?: string }} ProjectLink */
 
-		const red = parseInt(fullHex.slice(0, 2), 16);
-		const green = parseInt(fullHex.slice(2, 4), 16);
-		const blue = parseInt(fullHex.slice(4, 6), 16);
-		const luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
+	const links = $derived.by(() => {
+		if (project.links?.length) {
+			return (/** @type {ProjectLink[]} */ (project.links)).filter((item) => item?.label && item?.href);
+		}
 
-		return luminance > 0.6 ? '#111111' : '#ffffff';
-	}
+		return project.linkHref && project.linkLabel
+			? [{ label: project.linkLabel, href: project.linkHref }]
+			: [];
+	});
 </script>
 
 <li class:hide-divider={hideDivider} class="project_line">
@@ -32,18 +24,6 @@
 			<p class="project_time_range">{project.timeRange}</p>
 		{/if}
 	</div>
-	{#if project.tags?.length}
-		<ul class="project_tags">
-			{#each project.tags as [name, color]}
-				<li
-					class="project_tag"
-					style={`background-color: ${color}; color: ${getContrastTextColor(color)};`}
-				>
-					#{name}
-				</li>
-			{/each}
-		</ul>
-	{/if}
 	{#if project.role}
 		<p class="project_role">{project.role}</p>
 	{/if}
@@ -62,8 +42,24 @@
 			{/each}
 		</ul>
 	{/if}
-	{#if project.linkHref && project.linkLabel}
-		<a href={project.linkHref} class="live_site">{project.linkLabel}</a>
+	{#if project.tags?.length}
+		<TagPillList
+			tags={project.tags}
+			listClass={`project_tags ${links.length ? 'project_tags--with-links' : ''}`.trim()}
+			itemClass="project_tag"
+		/>
+	{/if}
+	{#if links.length}
+		<p class="project_links">
+			{#each links as link, index}
+				<a href={link.href} class="live_site link_default" aria-label={`${link.label}: ${project.title}`}>
+					{link.label}
+				</a>
+				{#if index < links.length - 1}
+					<span class="project_links__separator" aria-hidden="true">|</span>
+				{/if}
+			{/each}
+		</p>
 	{/if}
 </li>
 
@@ -101,23 +97,7 @@
 
 		.project_title {
 			margin-bottom: 0;
-		}
-
-		.project_tags {
-			display: flex;
-			flex-flow: row wrap;
-			gap: 0.8rem;
-			margin-bottom: 1.2rem;
-			padding-left: 0;
-		}
-
-		.project_tag {
-			margin-bottom: 0;
-			padding: 0.4rem 1rem;
-			border-radius: 999px;
-			font-size: 1.4rem;
-			font-weight: 600;
-			list-style: none;
+			font-weight: 550;
 		}
 
 		p {
@@ -168,6 +148,25 @@
 		.project_stack__item:not(:last-child)::after {
 			content: '|';
 			margin-left: 0.8rem;
+		}
+
+		.live_site {
+			color: var(--primary);
+		}
+
+		.project_links {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 0.8rem;
+		}
+
+		.project_links__separator {
+			color: var(--text-secondary);
+		}
+
+		:global(.project_tags--with-links) {
+			margin-bottom: 2.4rem;
 		}
 	}
 
