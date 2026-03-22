@@ -8,6 +8,13 @@
 
 	let { article } = $props();
 
+	const featuredImagePosition = $derived.by(() => {
+		const x = 50 + (article.featuredImage?.placementX ?? 0);
+		const y = 50 + (article.featuredImage?.placementY ?? 0);
+
+		return `${x}% ${y}%`;
+	});
+
 	const portableComponents = {
 		types: {
 			image: BlogPortableImage,
@@ -24,7 +31,11 @@
 
 	{#if article.featuredImage?.url}
 		<div class="blog_article__hero">
-			<img src={article.featuredImage.url} alt={article.featuredImage.alt || article.title} />
+			<img
+				src={article.featuredImage.url}
+				alt={article.featuredImage.alt || article.title}
+				style={`object-position: ${featuredImagePosition};`}
+			/>
 		</div>
 	{/if}
 

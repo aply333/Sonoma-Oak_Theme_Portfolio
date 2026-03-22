@@ -2,7 +2,7 @@
 	let { article } = $props();
 
 	/** @typedef {{ title?: string, href?: string }} RelatedArticle */
-	/** @typedef {{ title?: string }} RelatedEntry */
+	/** @typedef {{ title?: string, href?: string }} RelatedEntry */
 
 	const relatedArticles = $derived.by(() =>
 		(/** @type {RelatedArticle[]} */ (article?.relatedArticles ?? [])).filter(
@@ -32,7 +32,13 @@
 			<div class="blog_article__related_group">
 				<ul class="blog_article__related_list">
 					{#each relatedEntries as item}
-						<li>{item.title}</li>
+						<li>
+							{#if item.href}
+								<a class="link_default" href={item.href}>{item.title}</a>
+							{:else}
+								{item.title}
+							{/if}
+						</li>
 					{/each}
 				</ul>
 			</div>

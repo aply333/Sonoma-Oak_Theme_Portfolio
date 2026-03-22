@@ -183,12 +183,22 @@
 	margin-left: 0.8rem;
 }
 
+	.blog_article__hero {
+	display: block;
+	width: 80%;
+	margin-inline: 10%;
+	aspect-ratio: 21 / 9;
+	overflow: hidden;
+	border-radius: 2rem;
+}
+
 	.blog_article__hero img {
 	display: block;
 	width: 100%;
-	height: auto;
+	height: 100%;
+	object-fit: cover;
 	border: 0.1rem solid color-mix(in srgb, var(--border) 75%, transparent);
-	border-radius: 2rem;
+	border-radius: inherit;
 	background:
 		linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, transparent), transparent 62%),
 		var(--bg);

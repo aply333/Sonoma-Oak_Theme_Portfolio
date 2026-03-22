@@ -32,7 +32,9 @@ export async function load({ params }) {
 	const relatedArticles = relatedArticleItems.filter(
 		(item) => item?._id !== article._id && item?.title && item?.slug
 	);
-	const relatedEntries = article.relatedEntries ?? [];
+	const relatedEntries = /** @type {{title?: string, relatedArticleSlug?: string}[]} */ (
+		article.relatedEntries ?? []
+	);
 	const relatedTags = /** @type {{title?: string}[]} */ (article.relatedTags ?? []);
 
 	return {
@@ -63,7 +65,10 @@ export async function load({ params }) {
 				title: item.title,
 				href: `/blog/hobbies/${item.slug}`
 			})),
-			relatedEntries,
+			relatedEntries: relatedEntries.map((item) => ({
+				title: item.title,
+				href: item.relatedArticleSlug ? `/blog/hobbies/${item.relatedArticleSlug}` : undefined
+			})),
 			relatedMeta: relatedTags.map((item) => item?.title ? `#${item.title}` : '').filter(Boolean),
 			relatedMetaLabel: 'Tags'
 		}

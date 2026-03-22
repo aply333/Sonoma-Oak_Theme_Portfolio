@@ -109,6 +109,21 @@ function skillTitle(skill) {
 function mapFeaturedProject(entry) {
 	const stack = (entry?.skills ?? []).map(skillTitle).filter(Boolean);
 	const categoryTitle = entry?.category?.title;
+	const links = [];
+
+	if (entry?.link) {
+		links.push({
+			label: 'View Project',
+			href: entry.link
+		});
+	}
+
+	if (entry?.relatedArticleSlug) {
+		links.push({
+			label: 'View Write-up',
+			href: `/blog/projects/${entry.relatedArticleSlug}`
+		});
+	}
 
 	return {
 		title: entry?.title,
@@ -116,6 +131,7 @@ function mapFeaturedProject(entry) {
 		description: entry?.description,
 		responsibilities: entry?.details ?? [],
 		projectCategory: categoryTitle,
+		links,
 		linkLabel: entry?.link ? 'View Project' : undefined,
 		linkHref: entry?.link
 	};
@@ -125,10 +141,20 @@ function mapFeaturedProject(entry) {
  * @param {any} entry
  */
 function mapFeaturedHobby(entry) {
+	const links = [];
+
+	if (entry?.relatedArticleSlug) {
+		links.push({
+			label: 'View Write-up',
+			href: `/blog/hobbies/${entry.relatedArticleSlug}`
+		});
+	}
+
 	return {
 		title: entry?.title,
 		description: entry?.description,
 		responsibilities: entry?.responsibilities ?? [],
+		links,
 		tags: (entry?.tags ?? []).reduce(
 			/**
 			 * @param {[string, string][]} items
@@ -150,10 +176,20 @@ function mapFeaturedHobby(entry) {
  * @param {any} entry
  */
 function mapFeaturedData(entry) {
+	const links = [];
+
+	if (entry?.relatedArticleSlug) {
+		links.push({
+			label: 'View Write-up',
+			href: `/blog/data/${entry.relatedArticleSlug}`
+		});
+	}
+
 	return {
 		title: entry?.title,
 		description: entry?.description,
-		responsibilities: entry?.responsibilities ?? []
+		responsibilities: entry?.responsibilities ?? [],
+		links
 	};
 }
 

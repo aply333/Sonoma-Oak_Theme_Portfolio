@@ -3,6 +3,18 @@
 	import TagPillList from '$lib/assets/components/tag_pill_list.svelte';
 
 	let { project, hideDivider = false } = $props();
+
+	/** @typedef {{ label?: string, href?: string }} ProjectLink */
+
+	const links = $derived.by(() => {
+		if (project.links?.length) {
+			return (/** @type {ProjectLink[]} */ (project.links)).filter((item) => item?.label && item?.href);
+		}
+
+		return project.linkHref && project.linkLabel
+			? [{ label: project.linkLabel, href: project.linkHref }]
+			: [];
+	});
 </script>
 
 <li class:hide-divider={hideDivider} class="project_line">
@@ -31,16 +43,23 @@
 		</ul>
 	{/if}
 	{#if project.tags?.length}
-		<TagPillList tags={project.tags} listClass="project_tags" itemClass="project_tag" />
+		<TagPillList
+			tags={project.tags}
+			listClass={`project_tags ${links.length ? 'project_tags--with-links' : ''}`.trim()}
+			itemClass="project_tag"
+		/>
 	{/if}
-	{#if project.linkHref && project.linkLabel}
-		<a
-			href={project.linkHref}
-			class="live_site link_default"
-			aria-label={`${project.linkLabel}: ${project.title}`}
-		>
-			{project.linkLabel}
-		</a>
+	{#if links.length}
+		<p class="project_links">
+			{#each links as link, index}
+				<a href={link.href} class="live_site link_default" aria-label={`${link.label}: ${project.title}`}>
+					{link.label}
+				</a>
+				{#if index < links.length - 1}
+					<span class="project_links__separator" aria-hidden="true">|</span>
+				{/if}
+			{/each}
+		</p>
 	{/if}
 </li>
 
@@ -133,6 +152,21 @@
 
 		.live_site {
 			color: var(--primary);
+		}
+
+		.project_links {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 0.8rem;
+		}
+
+		.project_links__separator {
+			color: var(--text-secondary);
+		}
+
+		:global(.project_tags--with-links) {
+			margin-bottom: 2.4rem;
 		}
 	}
 

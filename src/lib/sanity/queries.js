@@ -43,6 +43,7 @@ export const portfolioContentQuery = groq`
 							description,
 							details,
 							link,
+							"relatedArticleSlug": relatedArticle->slug.current,
 							skills[]->{
 								title,
 								category
@@ -58,6 +59,7 @@ export const portfolioContentQuery = groq`
 							description,
 							details,
 							link,
+							"relatedArticleSlug": relatedArticle->slug.current,
 							skills[]->{
 								title,
 								category
@@ -75,6 +77,7 @@ export const portfolioContentQuery = groq`
 							title,
 							description,
 							responsibilities,
+							"relatedArticleSlug": relatedArticle->slug.current,
 							tags[]->{
 								title,
 								color
@@ -88,7 +91,8 @@ export const portfolioContentQuery = groq`
 							_id,
 							title,
 							description,
-							responsibilities
+							responsibilities,
+							"relatedArticleSlug": relatedArticle->slug.current
 						}, [])
 					}
 				}
@@ -284,6 +288,8 @@ export const projectBlogArticleQuery = groq`
 		"featuredImage": intro.featuredImage{
 			alt,
 			caption,
+			placementX,
+			placementY,
 			"url": asset->url,
 			"asset": asset->{
 				url
@@ -307,7 +313,8 @@ export const projectBlogArticleQuery = groq`
 		}, []),
 		"relatedEntries": coalesce(finalSection.projects[]->{
 			_id,
-			title
+			title,
+			"relatedArticleSlug": relatedArticle->slug.current
 		}, []),
 		"relatedSkills": coalesce(finalSection.skills[]->{
 			title,
@@ -327,6 +334,8 @@ export const dataBlogArticleQuery = groq`
 		"featuredImage": intro.featuredImage{
 			alt,
 			caption,
+			placementX,
+			placementY,
 			"url": asset->url,
 			"asset": asset->{
 				url
@@ -350,7 +359,8 @@ export const dataBlogArticleQuery = groq`
 		}, []),
 		"relatedEntries": coalesce(finalSection.dataEntries[]->{
 			_id,
-			title
+			title,
+			"relatedArticleSlug": relatedArticle->slug.current
 		}, []),
 		"relatedSkills": coalesce(finalSection.skills[]->{
 			title,
@@ -370,6 +380,8 @@ export const hobbyBlogArticleQuery = groq`
 		"featuredImage": intro.featuredImage{
 			alt,
 			caption,
+			placementX,
+			placementY,
 			"url": asset->url,
 			"asset": asset->{
 				url
@@ -396,7 +408,8 @@ export const hobbyBlogArticleQuery = groq`
 		}, []),
 		"relatedEntries": coalesce(finalSection.hobbies[]->{
 			_id,
-			title
+			title,
+			"relatedArticleSlug": relatedArticle->slug.current
 		}, []),
 		"relatedTags": coalesce(finalSection.tags[]->{
 			title,
