@@ -8,6 +8,7 @@
 		--radius-card: 1.2rem;
 		--radius-pill: 999px;
 		--bg: #ffffff;
+		--bg-fixed: #ffffff;
 		--bg-secondary: #f7f9f8;
 		--bg-tertiary: #eef3f0;
 		--bg-tertiary-fixed: #eef3f0;
@@ -33,6 +34,7 @@
 	@media (prefers-color-scheme: dark) {
 		:root {
 			--bg: #0f1412;
+			--bg-fixed: #ffffff;
 			--bg-secondary: #151a18;
 			--bg-tertiary: #1b2320;
 			--text: #e6e8e7;

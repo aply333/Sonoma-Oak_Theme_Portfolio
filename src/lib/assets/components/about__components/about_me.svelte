@@ -14,7 +14,11 @@
 		{/each}
 	</div>
 	<AboutHighlights highlights={content.highlights} />
-	<AboutLinks links={content.links} />
+	<AboutLinks
+		links={content.links}
+		contactEmail={content.contactEmail}
+		availabilityTag={content.availabilityTag}
+	/>
 </div>
 
 <style lang="scss">
