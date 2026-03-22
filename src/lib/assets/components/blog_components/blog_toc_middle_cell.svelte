@@ -1,11 +1,13 @@
 <script>
-	import TagPillList from '$lib/assets/components/tag_pill_list.svelte';
-
 	let { item } = $props();
 </script>
 
 {#if item.tags?.length}
-	<TagPillList tags={item.tags} listClass="blog_toc_tags" itemClass="blog_toc_tag" />
+	<ul class="blog_toc_stack list_reset">
+		{#each item.tags as [name]}
+			<li class="blog_toc_stack__item">{name}</li>
+		{/each}
+	</ul>
 {:else if item.stack?.length}
 	<ul class="blog_toc_stack list_reset">
 		{#each item.stack as stackItem}

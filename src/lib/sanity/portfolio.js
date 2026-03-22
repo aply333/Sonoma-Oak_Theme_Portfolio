@@ -34,11 +34,6 @@ function cloneFallback() {
 
 function createEmptyContent() {
 	return {
-		external_links: {
-			email: '',
-			github: '',
-			linkedin: ''
-		},
 		hero: {
 			title: '',
 			subtitle: ''
@@ -279,10 +274,6 @@ export function mergePortfolioContent(sanityContent) {
 
 	if (!sanityContent) {
 		return content;
-	}
-
-	if (portfolioContent?.external_links) {
-		content.external_links = portfolioContent.external_links;
 	}
 
 	if (portfolioContent?.hero) {

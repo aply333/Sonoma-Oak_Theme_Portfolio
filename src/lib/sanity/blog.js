@@ -190,6 +190,38 @@ export function sortByPublishedAt(posts) {
 }
 
 /**
+ * @param {{_type?: string} | null | undefined} post
+ * @returns {{category: string, href: string, mapper: typeof mapStackPosts | typeof mapHobbyPosts} | undefined}
+ */
+function getRootFeaturedConfig(post) {
+	if (post?._type === 'projectBlog') {
+		return {
+			category: 'Projects',
+			href: '/blog/projects',
+			mapper: mapStackPosts
+		};
+	}
+
+	if (post?._type === 'dataBlog') {
+		return {
+			category: 'Data',
+			href: '/blog/data',
+			mapper: mapStackPosts
+		};
+	}
+
+	if (post?._type === 'hobbyBlog') {
+		return {
+			category: 'Hobbies',
+			href: '/blog/hobbies',
+			mapper: mapHobbyPosts
+		};
+	}
+
+	return undefined;
+}
+
+/**
  * @param {BlogPostItem | undefined} post
  * @param {string} fallbackHref
  * @param {string} fallbackCategory
@@ -282,6 +314,20 @@ export function createBlogRootFallback() {
 	};
 }
 
+/**
+ * @param {any} post
+ * @returns {BlogPostItem | undefined}
+ */
+function mapRootFeaturedPost(post) {
+	const config = getRootFeaturedConfig(post);
+
+	if (!config) {
+		return undefined;
+	}
+
+	return config.mapper([post], config.category, config.href)[0];
+}
+
 export async function loadBlogRootPage() {
 	const fallback = createBlogRootFallback();
 
@@ -291,12 +337,13 @@ export async function loadBlogRootPage() {
 		const dataPosts = mapStackPosts(result?.dataPosts, 'Data', '/blog/data');
 		const hobbyPosts = mapHobbyPosts(result?.hobbyPosts, 'Hobbies', '/blog/hobbies');
 		const allPosts = sortByPublishedAt([...projectPosts, ...dataPosts, ...hobbyPosts]);
+		const featured = mapRootFeaturedPost(result?.blogContent?.featuredArticle);
 		const mostRecent = allPosts[0];
 
 		return {
 			pageTitle: result?.blogContent?.title || fallback.pageTitle,
 			pageIntroHtml: renderMarkdown(result?.blogContent?.intro),
-			featuredPost: toFeaturedPost(mostRecent, '/blog', 'Blog'),
+			featuredPost: toFeaturedPost(featured || mostRecent, '/blog', 'Blog'),
 			mostRecentPost: toMostRecentPost(mostRecent, '/blog', 'Blog'),
 			tocGroups: [
 				{

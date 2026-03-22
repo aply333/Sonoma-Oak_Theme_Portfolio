@@ -104,6 +104,23 @@
 		width: 100%;
 	}
 
+	.blog_section_break--unlabeled {
+		grid-template-columns: 1fr;
+	}
+
+	.blog_section_break--unlabeled .blog_section_break__rule {
+		width: 40%;
+		min-width: 40%;
+	}
+
+	.blog_section_break--left.blog_section_break--unlabeled {
+		justify-items: start;
+	}
+
+	.blog_section_break--center.blog_section_break--unlabeled {
+		justify-items: center;
+	}
+
 	.blog_section_break__label {
 		--section-rule-label-size: 1.35rem;
 		font-weight: 700;

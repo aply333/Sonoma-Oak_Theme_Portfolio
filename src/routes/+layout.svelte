@@ -58,6 +58,7 @@
 	<link rel="icon" href={favicon} type="image/svg+xml" />
 	<link rel="icon" href="/favicon-64.png" sizes="64x64" type="image/png" />
 	<link rel="icon" href="/favicon-128.png" sizes="128x128" type="image/png" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link

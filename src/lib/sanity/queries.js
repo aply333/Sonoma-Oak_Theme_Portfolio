@@ -4,7 +4,6 @@ export const portfolioContentQuery = groq`
 	{
 		"portfolioContent": *[_type == "portfolioContent" && _id in ["drafts.portfolioContent", "portfolioContent"]]
 			| order(_id desc)[0]{
-				external_links,
 				hero,
 				about{
 					title,
@@ -96,7 +95,6 @@ export const portfolioContentQuery = groq`
 			},
 		"workEducationContent": *[_type == "workEducationContent"]
 			| order(_updatedAt desc)[0]{
-				title,
 				workTitle,
 				"workEntries": coalesce(workEntries[]->{
 					_id,
@@ -130,7 +128,25 @@ export const blogRootQuery = groq`
 		"blogContent": *[_type == "blogContent" && _id in ["drafts.blogContent", "blogContent"]]
 			| order(_id desc)[0]{
 				title,
-				intro
+				intro,
+				"featuredArticle": featuredArticle->{
+					_type,
+					title,
+					"slug": slug.current,
+					"publishedAt": coalesce(intro.publishedAt, _createdAt),
+					"excerpt": intro.excerpt,
+					"skills": select(
+						_type == "projectBlog" => coalesce(finalSection.projects[0]->skills[]->title, []),
+						[]
+					),
+					"tags": select(
+						_type == "hobbyBlog" => coalesce(finalSection.hobbies[0]->tags[]->{
+							title,
+							color
+						}, []),
+						[]
+					)
+				}
 			},
 		"projectPosts": *[_type == "projectBlog"] | order(intro.publishedAt desc){
 			_id,
@@ -284,6 +300,11 @@ export const projectBlogArticleQuery = groq`
 			}
 		},
 		"stack": coalesce(finalSection.projects[0]->skills[]->title, []),
+		"relatedArticles": coalesce(finalSection.relatedArticles[]->{
+			_id,
+			title,
+			"slug": slug.current
+		}, []),
 		"relatedEntries": coalesce(finalSection.projects[]->{
 			_id,
 			title
@@ -322,6 +343,11 @@ export const dataBlogArticleQuery = groq`
 			}
 		},
 		"stack": [],
+		"relatedArticles": coalesce(finalSection.relatedArticles[]->{
+			_id,
+			title,
+			"slug": slug.current
+		}, []),
 		"relatedEntries": coalesce(finalSection.dataEntries[]->{
 			_id,
 			title
@@ -362,6 +388,11 @@ export const hobbyBlogArticleQuery = groq`
 		"tags": coalesce(finalSection.hobbies[0]->tags[]->{
 			title,
 			color
+		}, []),
+		"relatedArticles": coalesce(finalSection.relatedArticles[]->{
+			_id,
+			title,
+			"slug": slug.current
 		}, []),
 		"relatedEntries": coalesce(finalSection.hobbies[]->{
 			_id,

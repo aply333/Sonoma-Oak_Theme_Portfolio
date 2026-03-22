@@ -1,7 +1,7 @@
 <script>
 	import BlogFeaturedCard from '$lib/assets/components/blog_components/blog_featured_card.svelte';
 	import BlogRecentStrip from '$lib/assets/components/blog_components/blog_recent_strip.svelte';
-	import BlogTocGroup from '$lib/assets/components/blog_components/blog_toc_group.svelte';
+	import BlogTocMiddleCell from '$lib/assets/components/blog_components/blog_toc_middle_cell.svelte';
 
 	let { data } = $props();
 </script>
@@ -18,9 +18,43 @@
 
 	<BlogRecentStrip post={data.mostRecentPost} />
 
-	<div class="blog_toc_grid">
-		{#each data.tocGroups as group}
-			<BlogTocGroup {group} />
-		{/each}
-	</div>
+	<section class="blog_toc_card blog_toc_card--root">
+		<table class="blog_toc_table blog_toc_table--root">
+			<colgroup>
+				<col class="blog_toc_table__title-col" />
+				<col class="blog_toc_table__middle-col" />
+				<col class="blog_toc_table__date-col" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">Title</th>
+					<th class="blog_toc_table__middle-column" scope="col">Details</th>
+					<th class="blog_toc_table__date-column" scope="col">Date Posted</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each data.tocGroups as group}
+					<tr class="blog_toc_table__section-row">
+						<th class="blog_toc_table__section-heading" colspan="3" scope="colgroup">
+							<span class="title_3">{group.title}</span>
+						</th>
+					</tr>
+					{#each group.items as item}
+						<tr>
+							<td>
+								<a class="link_default" href={item.href}>{item.title}</a>
+							</td>
+							<td class="blog_toc_table__middle-column">
+								<BlogTocMiddleCell {item} />
+							</td>
+							<td class="blog_toc_table__date-column">
+								<span class="blog_toc_table__date-long">{item.datePosted}</span>
+								<span class="blog_toc_table__date-short">{item.shortDate}</span>
+							</td>
+						</tr>
+					{/each}
+				{/each}
+			</tbody>
+		</table>
+	</section>
 </div>

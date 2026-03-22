@@ -52,6 +52,11 @@
 		vertical-align: top;
 	}
 
+	.blog_toc_table th:first-child,
+	.blog_toc_table td:first-child {
+		padding-left: 1.6rem;
+	}
+
 	.blog_toc_table thead th {
 		color: var(--text-secondary);
 		font-size: 1.2rem;
@@ -66,26 +71,52 @@
 	}
 
 	.blog_toc_table td.blog_toc_table__middle-column {
-		text-align: center;
+		padding-left: 5rem;
+		text-align: left;
 	}
 
 	.blog_toc_table tbody tr:not(:last-child) td {
 		border-bottom: 0.1rem solid color-mix(in srgb, var(--border) 78%, transparent);
 	}
 
+	.blog_toc_table__section-row th {
+		padding: 0.8rem 1.6rem;
+		border-bottom: 0;
+		text-align: left;
+		background: var(--primary);
+		color: var(--bg-tertiary-fixed);
+	}
+
+	.blog_toc_table__section-row:first-child th {
+		padding-top: 0.8rem;
+	}
+
+	.blog_toc_table__section-heading .title_3 {
+		display: inline-block;
+		margin: 0;
+		color: inherit;
+		font-size: 1.8rem;
+	}
+
+	.blog_toc_table--root tbody .blog_toc_table__section-row + tr td {
+		border-top: 0.1rem solid color-mix(in srgb, var(--border) 78%, transparent);
+	}
+
 	.blog_toc_table a {
 		color: var(--text);
 		text-decoration: none;
+		white-space: nowrap;
 	}
 
 	.blog_toc_tags,
 	.blog_toc_stack {
 		display: flex;
-		flex-flow: row wrap;
-		justify-content: center;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
 		gap: 0.8rem;
 		margin: 0;
 		padding-left: 0;
+		white-space: nowrap;
 	}
 
 	.blog_toc_stack__item {
@@ -109,11 +140,12 @@
 	.blog_toc_fallback {
 		color: var(--text-secondary);
 		font-size: 1.4rem;
+		white-space: nowrap;
 	}
 
 	.blog_toc_fallback {
 		display: block;
-		text-align: center;
+		text-align: left;
 	}
 
 	.blog_toc_stack__item:not(:last-child)::after {
@@ -128,6 +160,7 @@
 	.blog_toc_table th.blog_toc_table__date-column,
 	.blog_toc_table td.blog_toc_table__date-column {
 		text-align: right;
+		white-space: nowrap;
 	}
 
 	.blog_toc_card[data-compact-header='true'] .blog_toc_card__header {
@@ -153,9 +186,17 @@
 			width: 1%;
 		}
 
+		.blog_toc_table td:first-child a {
+			white-space: normal;
+		}
+
 		.blog_toc_table th.blog_toc_table__middle-column,
 		.blog_toc_table td.blog_toc_table__middle-column {
 			display: none;
+		}
+
+		.blog_toc_table__section-row th {
+			padding: 0.7rem 1.6rem;
 		}
 
 		.blog_toc_table__middle-col {

@@ -26,6 +26,12 @@ export async function load({ params }) {
 	}
 
 	const tags = /** @type {{title?: string, color?: string}[]} */ (article.tags ?? []);
+	const relatedArticleItems = /** @type {{_id?: string, title?: string, slug?: string}[]} */ (
+		article.relatedArticles ?? []
+	);
+	const relatedArticles = relatedArticleItems.filter(
+		(item) => item?._id !== article._id && item?.title && item?.slug
+	);
 	const relatedEntries = article.relatedEntries ?? [];
 	const relatedTags = /** @type {{title?: string}[]} */ (article.relatedTags ?? []);
 
@@ -53,8 +59,11 @@ export async function load({ params }) {
 				[]
 			),
 			footerContentHtml: article.footerContent ? renderMarkdown(article.footerContent) : '',
+			relatedArticles: relatedArticles.map((item) => ({
+				title: item.title,
+				href: `/blog/hobbies/${item.slug}`
+			})),
 			relatedEntries,
-			relatedEntriesLabel: relatedEntries.length === 1 ? 'Hobby' : 'Hobbies',
 			relatedMeta: relatedTags.map((item) => item?.title ? `#${item.title}` : '').filter(Boolean),
 			relatedMetaLabel: 'Tags'
 		}
