@@ -5,6 +5,11 @@
 	},
 	"about": {
 		"title": "Who I am.",
+		"contactEmail": "",
+		"availabilityTag": {
+			"enabled": true,
+			"text": "Available for full-stack roles open to full-time and contract"
+		},
 		"links": [
 			{
 				"type": "linkedin",

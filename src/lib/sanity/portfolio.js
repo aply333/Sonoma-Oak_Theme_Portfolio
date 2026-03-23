@@ -40,6 +40,11 @@ function createEmptyContent() {
 		},
 		about: {
 			title: '',
+			contactEmail: '',
+			availabilityTag: {
+				enabled: false,
+				text: ''
+			},
 			links: [],
 			paragraphs: [],
 			highlights: []
@@ -323,6 +328,17 @@ export function mergePortfolioContent(sanityContent) {
 		content.about = {
 			...content.about,
 			...(portfolioContent.about.title ? { title: portfolioContent.about.title } : {}),
+			...(typeof portfolioContent.about.contactEmail === 'string'
+				? { contactEmail: portfolioContent.about.contactEmail }
+				: {}),
+			...(portfolioContent.about.availabilityTag
+				? {
+						availabilityTag: {
+							...content.about.availabilityTag,
+							...portfolioContent.about.availabilityTag
+						}
+					}
+				: {}),
 			...(Array.isArray(portfolioContent.about.links) ? { links: portfolioContent.about.links } : {}),
 			...(Array.isArray(portfolioContent.about.paragraphs)
 				? { paragraphs: portfolioContent.about.paragraphs }

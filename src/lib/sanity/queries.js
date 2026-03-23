@@ -7,6 +7,8 @@ export const portfolioContentQuery = groq`
 				hero,
 				about{
 					title,
+					contactEmail,
+					availabilityTag,
 					links,
 					paragraphs,
 					highlights{
