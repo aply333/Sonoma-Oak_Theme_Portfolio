@@ -32,6 +32,25 @@ function cloneFallback() {
 	return /** @type {any} */ (structuredClone(fallbackContent));
 }
 
+/**
+ * @param {any[]} links
+ * @param {string} resumeUrl
+ */
+function applyResumeUrl(links, resumeUrl) {
+	if (!resumeUrl || !Array.isArray(links)) {
+		return links;
+	}
+
+	return links.map((link) =>
+		link?.type === 'resume'
+			? {
+					...link,
+					href: resumeUrl
+				}
+			: link
+	);
+}
+
 function createEmptyContent() {
 	return {
 		hero: {
@@ -41,6 +60,7 @@ function createEmptyContent() {
 		about: {
 			title: '',
 			contactEmail: '',
+			resumeUrl: '',
 			availabilityTag: {
 				enabled: false,
 				text: ''
@@ -325,11 +345,18 @@ export function mergePortfolioContent(sanityContent) {
 	}
 
 	if (portfolioContent?.about) {
+		const aboutLinks = Array.isArray(portfolioContent.about.links)
+			? applyResumeUrl(portfolioContent.about.links, portfolioContent.about.resumeUrl)
+			: undefined;
+
 		content.about = {
 			...content.about,
 			...(portfolioContent.about.title ? { title: portfolioContent.about.title } : {}),
 			...(typeof portfolioContent.about.contactEmail === 'string'
 				? { contactEmail: portfolioContent.about.contactEmail }
+				: {}),
+			...(typeof portfolioContent.about.resumeUrl === 'string'
+				? { resumeUrl: portfolioContent.about.resumeUrl }
 				: {}),
 			...(portfolioContent.about.availabilityTag
 				? {
@@ -339,7 +366,7 @@ export function mergePortfolioContent(sanityContent) {
 						}
 					}
 				: {}),
-			...(Array.isArray(portfolioContent.about.links) ? { links: portfolioContent.about.links } : {}),
+			...(Array.isArray(aboutLinks) ? { links: aboutLinks } : {}),
 			...(Array.isArray(portfolioContent.about.paragraphs)
 				? { paragraphs: portfolioContent.about.paragraphs }
 				: {})

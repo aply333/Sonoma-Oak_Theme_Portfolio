@@ -5,13 +5,14 @@ export const portfolioContentQuery = groq`
 		"portfolioContent": *[_type == "portfolioContent" && _id in ["drafts.portfolioContent", "portfolioContent"]]
 			| order(_id desc)[0]{
 				hero,
-				about{
-					title,
-					contactEmail,
-					availabilityTag,
-					links,
-					paragraphs,
-					highlights{
+					about{
+						title,
+						contactEmail,
+						availabilityTag,
+						"resumeUrl": resumeFile.asset->url,
+						links,
+						paragraphs,
+						highlights{
 						"languages": coalesce(languages[]->{
 							_id,
 							title,
