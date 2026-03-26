@@ -44,13 +44,13 @@
 	{/if}
 
 	{#if article.body?.length}
-		<div class="blog_article__body prose prose--article-body content_width">
+		<div class="blog_article__body prose prose--article-body">
 			<PortableText value={article.body} components={portableComponents} />
 		</div>
 	{/if}
 
 	{#if article.footerContentHtml}
-		<section class="blog_article__footer prose prose--article-footer content_width">
+		<section class="blog_article__footer prose prose--article-footer">
 			{@html article.footerContentHtml}
 		</section>
 	{/if}

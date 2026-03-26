@@ -5,18 +5,18 @@
 	/** @typedef {{ title?: string, href?: string }} RelatedEntry */
 
 	const relatedArticles = $derived.by(() =>
-		(/** @type {RelatedArticle[]} */ (article?.relatedArticles ?? [])).filter(
+		/** @type {RelatedArticle[]} */ (article?.relatedArticles ?? []).filter(
 			(item) => item?.title && item?.href
 		)
 	);
 	const relatedEntries = $derived.by(() =>
-		(/** @type {RelatedEntry[]} */ (article?.relatedEntries ?? [])).filter((item) => item?.title)
+		/** @type {RelatedEntry[]} */ (article?.relatedEntries ?? []).filter((item) => item?.title)
 	);
 	const relatedMeta = $derived.by(() => (article?.relatedMeta ?? []).filter(Boolean));
 </script>
 
 {#if relatedArticles.length || relatedEntries.length || relatedMeta.length}
-	<section class="blog_article__related content_width">
+	<section class="blog_article__related">
 		<h2 class="title_3">Related</h2>
 		{#if relatedArticles.length}
 			<div class="blog_article__related_group">
