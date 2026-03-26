@@ -13,12 +13,16 @@
 		</p>
 		<h1 class="title_1">{article.title}</h1>
 		{#if article.excerptHtml}
-			<div class="blog_article__excerpt prose prose--article-excerpt content_width">
+			<div class="blog_article__excerpt prose prose--article-excerpt">
 				{@html article.excerptHtml}
 			</div>
 		{/if}
 		{#if article.tags?.length}
-			<TagPillList tags={article.tags} listClass="blog_article__tags" itemClass="blog_article__tag" />
+			<TagPillList
+				tags={article.tags}
+				listClass="blog_article__tags"
+				itemClass="blog_article__tag"
+			/>
 		{:else if article.stack?.length}
 			<ul class="blog_article__stack list_reset">
 				{#each article.stack as stackItem}

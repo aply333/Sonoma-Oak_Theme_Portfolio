@@ -131,7 +131,7 @@
 	@media (max-width: 640px) {
 		.blog_code_snippet {
 			border-radius: 1.4rem;
-			max-width: 80vw;
+			//max-width: 80vw;
 		}
 
 		.blog_code_snippet__label {
