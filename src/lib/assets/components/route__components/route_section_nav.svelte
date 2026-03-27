@@ -2,18 +2,35 @@
 	import { page } from '$app/state';
 	import { cubicOut } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
+	import LiveLinkSearch from '$lib/assets/components/search__components/live_link_search.svelte';
 
 	/** @typedef {{ href?: string; label: string }} NavItem */
 
-	let { ariaLabel, leftItems = [], rightItems = [], className = '', mobileMenu = false } = $props();
+	let {
+		ariaLabel,
+		leftItems = [],
+		rightItems = [],
+		searchItems = [],
+		searchQuery = $bindable(''),
+		searchLabel = 'Search',
+		searchPlaceholder = 'Search',
+		searchInputId = 'route-nav-search',
+		className = '',
+		mobileMenu = false
+	} = $props();
 
 	const allItems = $derived.by(() => [...leftItems, ...rightItems]);
 	const activeItem = $derived.by(
-		() => allItems.find((item) => item.href === page.url.pathname) ?? leftItems.find((item) => item.href) ?? null
+		() =>
+			allItems.find((item) => item.href === page.url.pathname) ??
+			leftItems.find((item) => item.href) ??
+			null
 	);
 	const activeLabel = $derived.by(() => activeItem?.label ?? leftItems[0]?.label ?? '');
 	const articleNav = $derived.by(() => className.split(' ').includes('route_section_nav--article'));
-	const mobileItems = $derived.by(() => allItems.filter((item) => item.href && item.href !== activeItem?.href));
+	const mobileItems = $derived.by(() =>
+		allItems.filter((item) => item.href && item.href !== activeItem?.href)
+	);
 	const mobileMenuHeight = $derived.by(
 		() => `${mobileItems.length * 4.4 + Math.max(mobileItems.length - 1, 0) * 1 + 0.8}rem`
 	);
@@ -34,7 +51,8 @@
 	 */
 	function expandMenu(node) {
 		const style = getComputedStyle(node);
-		const height = parseFloat(style.getPropertyValue('--mobile-menu-height')) * 10 || node.offsetHeight;
+		const height =
+			parseFloat(style.getPropertyValue('--mobile-menu-height')) * 10 || node.offsetHeight;
 
 		return {
 			duration: 220,
@@ -47,7 +65,10 @@
 	}
 </script>
 
-<nav class={`route_section_nav ${mobileMenu ? 'route_section_nav--mobile_enabled' : ''} ${className}`.trim()} aria-label={ariaLabel}>
+<nav
+	class={`route_section_nav ${mobileMenu ? 'route_section_nav--mobile_enabled' : ''} ${className}`.trim()}
+	aria-label={ariaLabel}
+>
 	<div class="route_section_nav__desktop">
 		<div class="route_section_nav__group">
 			{#each leftItems as item}
@@ -67,6 +88,19 @@
 		</div>
 
 		<div class="route_section_nav__group route_section_nav__group--right">
+			{#if searchItems.length}
+				<LiveLinkSearch
+					items={searchItems}
+					label={searchLabel}
+					placeholder={searchPlaceholder}
+					inputId={searchInputId}
+					bind:query={searchQuery}
+					className="route_section_nav__search"
+					compact
+					collapseToIconOnMobile
+				/>
+			{/if}
+
 			{#each rightItems as item}
 				<a
 					href={item.href}
@@ -84,23 +118,41 @@
 		<div class="route_section_nav__mobile">
 			<div class="route_section_nav__mobile_header">
 				{#if articleNav && activeItem?.href}
-					<a href={activeItem.href} class="route_section_nav__mobile_active route_section_nav__mobile_active_link type_rule_label link_default">
+					<a
+						href={activeItem.href}
+						class="route_section_nav__mobile_active route_section_nav__mobile_active_link type_rule_label link_default"
+					>
 						{activeLabel}
 					</a>
 				{:else}
 					<span class="route_section_nav__mobile_active type_rule_label">{activeLabel}</span>
 				{/if}
-				<button
-					class="route_section_nav__menu_toggle"
-					type="button"
-					aria-expanded={mobileMenuOpen}
-					aria-label="Toggle navigation menu"
-					onclick={toggleMobileMenu}
-				>
-					<span></span>
-					<span></span>
-					<span></span>
-				</button>
+				<div class="route_section_nav__mobile_controls">
+					{#if searchItems.length}
+						<LiveLinkSearch
+							items={searchItems}
+							label={searchLabel}
+							placeholder={searchPlaceholder}
+							inputId={`${searchInputId}-mobile`}
+							bind:query={searchQuery}
+							className="route_section_nav__mobile_search"
+							compact
+							collapseToIconOnMobile
+						/>
+					{/if}
+
+					<button
+						class="route_section_nav__menu_toggle"
+						type="button"
+						aria-expanded={mobileMenuOpen}
+						aria-label="Toggle navigation menu"
+						onclick={toggleMobileMenu}
+					>
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+				</div>
 			</div>
 
 			{#if mobileMenuOpen}
@@ -115,7 +167,10 @@
 						out:fade={{ duration: 90 }}
 					>
 						{#each mobileItems as item}
-							<a href={item.href} class="route_section_nav__mobile_item type_rule_label link_default">
+							<a
+								href={item.href}
+								class="route_section_nav__mobile_item type_rule_label link_default"
+							>
 								{item.label}
 							</a>
 						{/each}
@@ -146,7 +201,12 @@
 	}
 
 	.route_section_nav__group--right {
+		align-items: center;
 		justify-content: flex-end;
+	}
+
+	.route_section_nav__search {
+		align-self: center;
 	}
 
 	.route_section_nav__link {
@@ -204,6 +264,12 @@
 			gap: 1.2rem;
 		}
 
+		.route_section_nav__mobile_controls {
+			display: flex;
+			align-items: center;
+			gap: 0.4rem;
+		}
+
 		.route_section_nav__mobile_active {
 			color: var(--primary);
 		}
@@ -245,7 +311,9 @@
 			height: 0.2rem;
 			background-color: currentColor;
 			border-radius: 999px;
-			transition: transform 180ms ease, opacity 180ms ease;
+			transition:
+				transform 180ms ease,
+				opacity 180ms ease;
 		}
 
 		.route_section_nav__menu_toggle span:nth-child(1) {
@@ -292,7 +360,9 @@
 			color: var(--text-secondary);
 			font-size: 1.4rem;
 			text-align: right;
-			transition: color 160ms ease, transform 160ms ease;
+			transition:
+				color 160ms ease,
+				transform 160ms ease;
 		}
 
 		.route_section_nav__mobile_item:hover,

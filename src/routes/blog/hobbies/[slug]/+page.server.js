@@ -1,13 +1,6 @@
 import { error } from '@sveltejs/kit';
-import {
-	hobbyBlogArticleQuery,
-	hobbyBlogArticleSlugsQuery
-} from '$lib/sanity/queries';
-import {
-	formatLongDate,
-	renderMarkdown,
-	sanityClient
-} from '$lib/sanity/blog';
+import { hobbyBlogArticleQuery, hobbyBlogArticleSlugsQuery } from '$lib/sanity/queries';
+import { formatLongDate, renderMarkdown, sanityClient } from '$lib/sanity/blog';
 
 export async function entries() {
 	const slugs = await sanityClient.fetch(hobbyBlogArticleSlugsQuery);
@@ -36,6 +29,9 @@ export async function load({ params }) {
 		article.relatedEntries ?? []
 	);
 	const relatedTags = /** @type {{title?: string}[]} */ (article.relatedTags ?? []);
+	const downloadableFiles = /** @type {{title?: string, fileUrl?: string, fileName?: string}[]} */ (
+		article.downloadableFiles ?? []
+	);
 
 	return {
 		article: {
@@ -69,7 +65,14 @@ export async function load({ params }) {
 				title: item.title,
 				href: item.relatedArticleSlug ? `/blog/hobbies/${item.relatedArticleSlug}` : undefined
 			})),
-			relatedMeta: relatedTags.map((item) => item?.title ? `#${item.title}` : '').filter(Boolean),
+			downloadableFiles: downloadableFiles
+				.filter((item) => item?.fileUrl && (item?.title || item?.fileName))
+				.map((item) => ({
+					title: item.title,
+					href: item.fileUrl,
+					fileName: item.fileName
+				})),
+			relatedMeta: relatedTags.map((item) => (item?.title ? `#${item.title}` : '')).filter(Boolean),
 			relatedMetaLabel: 'Tags'
 		}
 	};

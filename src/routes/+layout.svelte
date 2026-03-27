@@ -1,6 +1,6 @@
 <script>
 	import favicon from '$lib/assets/favicon.svg';
-	import "$lib/assets/global_styles/globals.scss";
+	import '$lib/assets/global_styles/globals.scss';
 	import content from '$lib/assets/content.json';
 	import { stripFormattedText } from '$lib/utils/markdown';
 	import { page } from '$app/state';
@@ -41,6 +41,10 @@
 			return 'Tools';
 		}
 
+		if (pathname === '/site-map') {
+			return 'Site Map';
+		}
+
 		if (pathname.startsWith('/tools/')) {
 			const category = pathname.split('/')[2];
 
@@ -67,25 +71,29 @@
 	/>
 </svelte:head>
 
-<div class="site-shell">
+<div class="site_shell">
 	<a class="skip_link" href="#main-content">Skip to main content</a>
 
-	<main id="main-content" class="main-container">
+	<main id="main-content" class="main_container">
 		{@render children()}
 	</main>
 
-	<footer class="grid_wrapper site-footer">
-		<p class="site-footer__text">{footerLabel}</p>
-		<nav class="site-footer__nav" aria-label="Footer">
-			<a class="site-footer__link" href="/tools">Tools</a>
-			<a class="site-footer__link site-footer__blog-link" href="/blog">Blog</a>
+	<footer class="grid_wrapper site_footer">
+		<nav class="site_footer__nav site_footer__nav--left" aria-label="Site map">
+			<a class="site_footer__link" href="/site-map">Site Map</a>
+		</nav>
+
+		<p class="site_footer__text">{footerLabel}</p>
+
+		<nav class="site_footer__nav site_footer__nav--right" aria-label="Footer">
+			<a class="site_footer__link" href="/tools">Tools</a>
+			<a class="site_footer__link site_footer__blog_link" href="/blog">Blog</a>
 		</nav>
 	</footer>
 </div>
 
-
 <style lang="scss">
-	.site-shell {
+	.site_shell {
 		min-height: 100svh;
 		display: flex;
 		flex-direction: column;
@@ -112,7 +120,7 @@
 		transform: translateY(0);
 	}
 
-	.main-container {
+	.main_container {
 		position: relative;
 		z-index: 1;
 		flex: 1 0 auto;
@@ -121,15 +129,15 @@
 		margin: clamp(12rem, 10vw, 24rem) auto 0 auto;
 	}
 
-	.site-footer {
+	.site_footer {
 		margin-top: auto;
 		padding: 1.6rem 2rem;
 		background-color: var(--border);
 	}
 
-	.site-footer__text {
+	.site_footer__text {
 		max-width: 130rem;
-		grid-column: 1 / 9;
+		grid-column: 3 / 8;
 		margin: 0 auto;
 		padding: 0;
 		color: var(--text);
@@ -139,15 +147,23 @@
 		text-align: center;
 	}
 
-	.site-footer__nav {
-		grid-column: 9 / 10;
+	.site_footer__nav {
 		display: flex;
 		align-items: baseline;
-		justify-content: flex-end;
 		gap: 0.8rem;
 	}
 
-	.site-footer__link {
+	.site_footer__nav--left {
+		grid-column: 1 / 3;
+		justify-content: flex-start;
+	}
+
+	.site_footer__nav--right {
+		grid-column: 8 / 10;
+		justify-content: flex-end;
+	}
+
+	.site_footer__link {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
@@ -163,7 +179,7 @@
 		transition: color 180ms ease;
 	}
 
-	.site-footer__link::after {
+	.site_footer__link::after {
 		content: '';
 		position: absolute;
 		left: 0.6rem;
@@ -173,47 +189,49 @@
 		opacity: 0.45;
 		transform: scaleX(0.82);
 		transform-origin: center;
-		transition: opacity 180ms ease, transform 180ms ease;
+		transition:
+			opacity 180ms ease,
+			transform 180ms ease;
 	}
 
-	.site-footer__link:hover::after,
-	.site-footer__link:focus-visible::after {
+	.site_footer__link:hover::after,
+	.site_footer__link:focus-visible::after {
 		opacity: 0.85;
 		transform: scaleX(1);
 	}
 
-	.site-footer__link:hover,
-	.site-footer__link:focus-visible {
+	.site_footer__link:hover,
+	.site_footer__link:focus-visible {
 		color: var(--primary);
 	}
 
-	.site-footer__link:focus-visible {
+	.site_footer__link:focus-visible {
 		outline: none;
 		box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--primary) 18%, transparent);
 	}
 
 	@media (min-width: 769px) {
-		.site-footer__blog-link {
+		.site_footer__blog_link {
 			margin-right: 2rem;
 		}
 	}
 
 	@media (max-width: 768px) {
-		.main-container {
+		.main_container {
 			width: 92vw;
 			margin: 6rem auto 0;
 		}
 
-		.site-footer {
+		.site_footer {
 			padding: 1.4rem 1.6rem;
 		}
 
-		.site-footer__text {
+		.site_footer__text {
 			grid-column: 1 / -1;
 			width: 92vw;
 		}
 
-		.site-footer__nav {
+		.site_footer__nav {
 			grid-column: 1 / -1;
 			justify-content: center;
 		}

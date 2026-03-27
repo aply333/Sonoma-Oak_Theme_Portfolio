@@ -2,8 +2,33 @@
 	import BlogFeaturedCard from '$lib/assets/components/blog_components/blog_featured_card.svelte';
 	import BlogRecentStrip from '$lib/assets/components/blog_components/blog_recent_strip.svelte';
 	import BlogTocMiddleCell from '$lib/assets/components/blog_components/blog_toc_middle_cell.svelte';
+	import { getContext } from 'svelte';
 
 	let { data } = $props();
+	const blogSearchQuery = getContext('blog-search-query');
+
+	function normalizeValue(value) {
+		return value.trim().toLowerCase();
+	}
+
+	const filteredGroups = $derived.by(() => {
+		const query = normalizeValue($blogSearchQuery || '');
+
+		if (!query) {
+			return data.tocGroups;
+		}
+
+		return (data.tocGroups ?? [])
+			.map((group) => ({
+				...group,
+				items: (group.items ?? []).filter((item) =>
+					normalizeValue(
+						`${item.title || ''} ${item.category || ''} ${item.summary || ''}`
+					).includes(query)
+				)
+			}))
+			.filter((group) => group.items.length);
+	});
 </script>
 
 <div class="blog_page page_stack">
@@ -33,7 +58,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each data.tocGroups as group}
+				{#each filteredGroups as group}
 					<tr class="blog_toc_table__section-row">
 						<th class="blog_toc_table__section-heading" colspan="3" scope="colgroup">
 							<span class="title_3">{group.title}</span>
@@ -56,5 +81,16 @@
 				{/each}
 			</tbody>
 		</table>
+
+		{#if !filteredGroups.length}
+			<p class="blog_page__search_empty copy_inline">No articles match that search.</p>
+		{/if}
 	</section>
 </div>
+
+<style lang="scss">
+	.blog_page__search_empty {
+		margin: 0;
+		color: var(--text-secondary);
+	}
+</style>

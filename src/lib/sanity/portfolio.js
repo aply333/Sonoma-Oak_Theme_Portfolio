@@ -198,6 +198,39 @@ function mapFeaturedHobby(entry) {
 }
 
 /**
+ * Normalize fallback hobby entries so presentation components always receive `tags`.
+ * @param {any} hobbyCategory
+ */
+function normalizeHobbyCategory(hobbyCategory) {
+	if (!hobbyCategory || typeof hobbyCategory !== 'object') {
+		return hobbyCategory;
+	}
+
+	if (!Array.isArray(hobbyCategory.items) || !Array.isArray(hobbyCategory.tagCatalog)) {
+		return hobbyCategory;
+	}
+
+	return {
+		...hobbyCategory,
+		items: hobbyCategory.items.map((item) => {
+			if (
+				!item ||
+				typeof item !== 'object' ||
+				!Array.isArray(item.tagIndexes) ||
+				item.tags?.length
+			) {
+				return item;
+			}
+
+			return {
+				...item,
+				tags: item.tagIndexes.map((index) => hobbyCategory.tagCatalog[index]).filter(Boolean)
+			};
+		})
+	};
+}
+
+/**
  * @param {any} entry
  */
 function mapFeaturedData(entry) {
@@ -429,6 +462,14 @@ export function mergePortfolioContent(sanityContent) {
 			items: featuredDataEntries.map(mapFeaturedData)
 		};
 	}
+
+	content.projects = {
+		...content.projects,
+		categories: {
+			...content.projects.categories,
+			Hobby: normalizeHobbyCategory(content.projects.categories.Hobby)
+		}
+	};
 
 	return content;
 }
