@@ -4,6 +4,7 @@
 	import BlogBubbleText from '$lib/assets/components/blog_components/blog_bubble_text.svelte';
 	import BlogCodeSnippet from '$lib/assets/components/blog_components/blog_code_snippet.svelte';
 	import BlogArticleRelated from '$lib/assets/components/blog_components/blog_article_related.svelte';
+	import BlogArticleDownloads from '$lib/assets/components/blog_components/blog_article_downloads.svelte';
 	import BlogPortableImage from '$lib/assets/components/blog_components/blog_portable_image.svelte';
 	import BlogSectionBreak from '$lib/assets/components/blog_components/blog_section_break.svelte';
 	import BlogTwoColumnTable from '$lib/assets/components/blog_components/blog_two_column_table.svelte';
@@ -56,4 +57,5 @@
 	{/if}
 
 	<BlogArticleRelated {article} />
+	<BlogArticleDownloads {article} />
 </article>

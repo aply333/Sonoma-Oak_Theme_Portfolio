@@ -3,11 +3,11 @@
 	import ProjectSectionHeader from '$lib/assets/components/project__components/project_section_header.svelte';
 	import ProjectTextBlock from '$lib/assets/components/project__components/project_text_block.svelte';
 
-	let { category, resolveProject } = $props();
+	let { category } = $props();
 
 	/** @param {{ items?: unknown[] } | unknown[]} categoryData */
 	function getItems(categoryData) {
-		return Array.isArray(categoryData) ? categoryData : categoryData.items ?? [];
+		return Array.isArray(categoryData) ? categoryData : (categoryData.items ?? []);
 	}
 </script>
 
@@ -15,10 +15,7 @@
 	{#each category.sections as section}
 		<ProjectSectionHeader title={section.title} />
 		{#each section.items as project, projectIndex}
-			<ProjectLine
-				project={resolveProject(project)}
-				hideDivider={projectIndex === section.items.length - 1}
-			/>
+			<ProjectLine {project} hideDivider={projectIndex === section.items.length - 1} />
 		{/each}
 	{/each}
 	{#if category.reflection}
@@ -29,6 +26,6 @@
 		<ProjectTextBlock title={category.introSection.title} body={category.introSection.body} />
 	{/if}
 	{#each getItems(category) as project}
-		<ProjectLine project={resolveProject(project)} />
+		<ProjectLine {project} />
 	{/each}
 {/if}

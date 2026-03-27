@@ -73,6 +73,13 @@
 		width: 100%;
 	}
 
+	.blog_article__downloads {
+		display: grid;
+		gap: 1.6rem;
+		grid-column: 2 / -2;
+		width: 100%;
+	}
+
 	.blog_article__related_group {
 		display: grid;
 		gap: 0.8rem;
@@ -115,6 +122,7 @@
 
 		.blog_article__header_inner,
 		.blog_article__related,
+		.blog_article__downloads,
 		.blog_article__footer {
 			grid-column: 1 / -1;
 		}
@@ -177,7 +185,8 @@
 
 		.blog_article__body > *,
 		.blog_article__footer,
-		.blog_article__related {
+		.blog_article__related,
+		.blog_article__downloads {
 			grid-column: 1;
 		}
 	}
