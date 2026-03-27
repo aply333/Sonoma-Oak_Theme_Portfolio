@@ -323,6 +323,11 @@ export const projectBlogArticleQuery = groq`
 			title,
 			category
 		}, []),
+		"downloadableFiles": coalesce(finalSection.downloadableFiles[]{
+			title,
+			"fileUrl": file.asset->url,
+			"fileName": file.asset->originalFilename
+		}, []),
 		"footerContent": finalSection.footerContent
 	}
 `;
@@ -368,6 +373,11 @@ export const dataBlogArticleQuery = groq`
 		"relatedSkills": coalesce(finalSection.skills[]->{
 			title,
 			category
+		}, []),
+		"downloadableFiles": coalesce(finalSection.downloadableFiles[]{
+			title,
+			"fileUrl": file.asset->url,
+			"fileName": file.asset->originalFilename
 		}, []),
 		"footerContent": finalSection.footerContent
 	}
@@ -418,6 +428,73 @@ export const hobbyBlogArticleQuery = groq`
 			title,
 			color
 		}, []),
+		"downloadableFiles": coalesce(finalSection.downloadableFiles[]{
+			title,
+			"fileUrl": file.asset->url,
+			"fileName": file.asset->originalFilename
+		}, []),
 		"footerContent": finalSection.footerContent
+	}
+`;
+
+export const siteMapQuery = groq`
+	{
+		"siteMapContent": *[_type == "siteMapContent" && _id in ["drafts.siteMapContent", "siteMapContent"]]
+			| order(_id desc)[0]{
+				title,
+				intro,
+				"sections": coalesce(sections[]{
+					sectionId,
+					title,
+					"pages": coalesce(pages[]{
+						pageId,
+						title,
+						href,
+						pageType,
+						childSectionTitle,
+						display
+					}, [])
+				}, [])
+			},
+		"portfolioDownloads": *[_type == "portfolioContent" && _id in ["drafts.portfolioContent", "portfolioContent"]]
+			| order(_id desc)[0]{
+				"items": select(
+					defined(about.resumeFile.asset->url) => [
+						{
+							"title": coalesce(about.links[type == "resume"][0].label, "Resume"),
+							"href": about.resumeFile.asset->url,
+							"fileName": about.resumeFile.asset->originalFilename
+						}
+					],
+					[]
+				)
+			},
+		"projectPosts": *[_type == "projectBlog" && defined(slug.current)] | order(coalesce(intro.publishedAt, _createdAt) desc){
+			title,
+			"slug": slug.current,
+			"downloads": coalesce(finalSection.downloadableFiles[]{
+				title,
+				"href": file.asset->url,
+				"fileName": file.asset->originalFilename
+			}, [])
+		},
+		"dataPosts": *[_type == "dataBlog" && defined(slug.current)] | order(coalesce(intro.publishedAt, _createdAt) desc){
+			title,
+			"slug": slug.current,
+			"downloads": coalesce(finalSection.downloadableFiles[]{
+				title,
+				"href": file.asset->url,
+				"fileName": file.asset->originalFilename
+			}, [])
+		},
+		"hobbyPosts": *[_type == "hobbyBlog" && defined(slug.current)] | order(coalesce(intro.publishedAt, _createdAt) desc){
+			title,
+			"slug": slug.current,
+			"downloads": coalesce(finalSection.downloadableFiles[]{
+				title,
+				"href": file.asset->url,
+				"fileName": file.asset->originalFilename
+			}, [])
+		}
 	}
 `;

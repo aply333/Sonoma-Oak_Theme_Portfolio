@@ -1,14 +1,4 @@
 @layer areas {
-	.blog_article {
-		--local-header-width: 90.72rem;
-		--local-content-width: 86.4rem;
-		justify-items: center;
-	}
-
-	.blog_shell--article .blog_content {
-		padding-top: 3.6rem;
-	}
-
 	.blog_article p,
 	.blog_article h1,
 	.blog_article h2,
@@ -17,23 +7,6 @@
 	.blog_article h5,
 	.blog_article h6 {
 		padding-inline: 0;
-	}
-
-	.blog_article__header {
-		width: 100%;
-		position: relative;
-		isolation: isolate;
-		display: grid;
-		justify-self: center;
-		padding: 0;
-		margin-bottom: 6.4rem;
-	}
-
-	.blog_article__header_inner {
-		width: 100%;
-		max-width: var(--local-header-width, var(--header-width));
-		justify-self: center;
-		gap: 1.6rem;
 	}
 
 	.blog_article__header::before {
@@ -183,15 +156,6 @@
 	margin-left: 0.8rem;
 }
 
-	.blog_article__hero {
-	display: block;
-	width: 80%;
-	margin-inline: 10%;
-	aspect-ratio: 21 / 9;
-	overflow: hidden;
-	border-radius: 2rem;
-}
-
 	.blog_article__hero img {
 	display: block;
 	width: 100%;
@@ -203,12 +167,6 @@
 		linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, transparent), transparent 62%),
 		var(--bg);
 	box-shadow: var(--shadow-soft);
-}
-
-	.blog_article__excerpt,
-	.blog_article__body,
-	.blog_article__footer {
-	justify-self: center;
 }
 
 	.blog_article__footer {
@@ -274,17 +232,6 @@
 	display: list-item;
 }
 
-	.blog_article__related {
-	display: grid;
-	gap: 1.6rem;
-	justify-self: center;
-}
-
-	.blog_article__related_group {
-	display: grid;
-	gap: 0.8rem;
-}
-
 	.blog_article__related_list {
 	margin: 0;
 	padding-left: 2rem;
@@ -292,30 +239,12 @@
 
 	.blog_article__related_list li + li {
 	margin-top: 0.4rem;
-}
+	}
 
 	@media (max-width: 768px) {
-		.blog_shell--article .blog_content {
-			padding-top: 2.4rem;
-		}
-
-		.blog_article__header {
-			width: 100vw;
-			margin-inline: calc(50% - 50vw);
-			margin-bottom: 3.2rem;
-		}
-
-		.blog_article__header_inner {
-			padding-inline: var(--inline-space);
-		}
-
 		.blog_article__header::before {
 			inset: -2.4rem 0;
 			border-radius: 0;
-		}
-
-		.blog_article__excerpt {
-			padding-inline: 0;
 		}
 
 		.blog_article__body {

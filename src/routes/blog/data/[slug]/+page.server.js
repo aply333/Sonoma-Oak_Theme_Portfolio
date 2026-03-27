@@ -1,13 +1,6 @@
 import { error } from '@sveltejs/kit';
-import {
-	dataBlogArticleQuery,
-	dataBlogArticleSlugsQuery
-} from '$lib/sanity/queries';
-import {
-	formatLongDate,
-	renderMarkdown,
-	sanityClient
-} from '$lib/sanity/blog';
+import { dataBlogArticleQuery, dataBlogArticleSlugsQuery } from '$lib/sanity/queries';
+import { formatLongDate, renderMarkdown, sanityClient } from '$lib/sanity/blog';
 
 export async function entries() {
 	const slugs = await sanityClient.fetch(dataBlogArticleSlugsQuery);
@@ -35,6 +28,9 @@ export async function load({ params }) {
 		article.relatedEntries ?? []
 	);
 	const relatedSkills = /** @type {{title?: string}[]} */ (article.relatedSkills ?? []);
+	const downloadableFiles = /** @type {{title?: string, fileUrl?: string, fileName?: string}[]} */ (
+		article.downloadableFiles ?? []
+	);
 
 	return {
 		article: {
@@ -55,6 +51,13 @@ export async function load({ params }) {
 				title: item.title,
 				href: item.relatedArticleSlug ? `/blog/data/${item.relatedArticleSlug}` : undefined
 			})),
+			downloadableFiles: downloadableFiles
+				.filter((item) => item?.fileUrl && (item?.title || item?.fileName))
+				.map((item) => ({
+					title: item.title,
+					href: item.fileUrl,
+					fileName: item.fileName
+				})),
 			relatedMeta: relatedSkills.map((item) => item?.title).filter(Boolean),
 			relatedMetaLabel: 'Skills'
 		}
