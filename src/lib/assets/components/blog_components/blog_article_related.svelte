@@ -4,18 +4,29 @@
 	/** @typedef {{ title?: string, href?: string }} RelatedArticle */
 	/** @typedef {{ title?: string, href?: string }} RelatedEntry */
 
+	function hasText(value) {
+		return typeof value === 'string' && value.trim().length > 0;
+	}
+
 	const relatedArticles = $derived.by(() =>
 		/** @type {RelatedArticle[]} */ (article?.relatedArticles ?? []).filter(
-			(item) => item?.title && item?.href
+			(item) => hasText(item?.title) && hasText(item?.href)
 		)
 	);
 	const relatedEntries = $derived.by(() =>
-		/** @type {RelatedEntry[]} */ (article?.relatedEntries ?? []).filter((item) => item?.title)
+		/** @type {RelatedEntry[]} */ (article?.relatedEntries ?? []).filter((item) =>
+			hasText(item?.title)
+		)
 	);
-	const relatedMeta = $derived.by(() => (article?.relatedMeta ?? []).filter(Boolean));
+	const relatedMeta = $derived.by(() =>
+		(article?.relatedMeta ?? []).filter((item) => hasText(item))
+	);
+	const hasRelatedContent = $derived.by(
+		() => relatedArticles.length > 0 || relatedEntries.length > 0 || relatedMeta.length > 0
+	);
 </script>
 
-{#if relatedArticles.length || relatedEntries.length || relatedMeta.length}
+{#if hasRelatedContent}
 	<section class="blog_article__related">
 		<h2 class="title_3">Related</h2>
 		{#if relatedArticles.length}
