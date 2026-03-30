@@ -341,8 +341,21 @@ function mergeGalleryCategories(galleryContent) {
 		};
 	}
 
-	if (featuredDataEntries.length) {
-		categories.Data = featuredDataEntries.map(mapFeaturedData);
+	if (
+		featuredDataEntries.length ||
+		galleryContent?.dataGallery?.title ||
+		galleryContent?.dataGallery?.intro
+	) {
+		categories.Data = {
+			introSection:
+				galleryContent?.dataGallery?.title || galleryContent?.dataGallery?.intro
+					? {
+							title: galleryContent?.dataGallery?.title,
+							body: galleryContent?.dataGallery?.intro
+						}
+					: null,
+			items: featuredDataEntries.map(mapFeaturedData)
+		};
 	}
 
 	if (featuredHobbies.length) {
