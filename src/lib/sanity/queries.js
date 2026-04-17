@@ -437,6 +437,18 @@ export const hobbyBlogArticleQuery = groq`
 	}
 `;
 
+export const toolsSettingsQuery = groq`
+	*[_type == "toolsSettings" && _id in ["drafts.toolsSettings", "toolsSettings"]]
+		| order(_id desc)[0]{
+			weekDayRatingEnabled,
+			weekDayRatingPrompt,
+			weekDayRatingLabels[]{
+				value,
+				label
+			}
+		}
+`;
+
 export const siteMapQuery = groq`
 	{
 		"siteMapContent": *[_type == "siteMapContent" && _id in ["drafts.siteMapContent", "siteMapContent"]]

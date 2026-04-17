@@ -1,0 +1,29 @@
+{
+	"title": "Week Day Rating",
+	"intro": [
+		"A daily check-in for tracking classroom behavior across the day.",
+		"Enter your access code to get started. Your session will be remembered until you log out."
+	],
+	"codeField": {
+		"id": "access_code",
+		"name": "access_code",
+		"label": "Access Code",
+		"placeholder": "Enter your code"
+	},
+	"codeSubmitLabel": "Verify Code",
+	"ratingLegend": "How was today?",
+	"ratingOptions": [
+		{ "id": "rating_10", "value": "10", "marker": "10", "label": "Great day", "description": "Little to no behaviors." },
+		{ "id": "rating_9",  "value": "9",  "marker": "9",  "label": "", "description": "" },
+		{ "id": "rating_8",  "value": "8",  "marker": "8",  "label": "", "description": "" },
+		{ "id": "rating_7",  "value": "7",  "marker": "7",  "label": "", "description": "" },
+		{ "id": "rating_6",  "value": "6",  "marker": "6",  "label": "", "description": "" },
+		{ "id": "rating_5",  "value": "5",  "marker": "5",  "label": "Decent day", "description": "Some behavioral events." },
+		{ "id": "rating_4",  "value": "4",  "marker": "4",  "label": "", "description": "" },
+		{ "id": "rating_3",  "value": "3",  "marker": "3",  "label": "", "description": "" },
+		{ "id": "rating_2",  "value": "2",  "marker": "2",  "label": "", "description": "" },
+		{ "id": "rating_1",  "value": "1",  "marker": "1",  "label": "", "description": "" },
+		{ "id": "rating_0",  "value": "0",  "marker": "0",  "label": "Challenging day", "description": "All students had behavioral events." }
+	],
+	"submitLabel": "Submit Rating"
+}
