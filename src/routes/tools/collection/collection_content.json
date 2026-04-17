@@ -13,6 +13,17 @@
 				"Aggression Intensity"
 			],
 			"href": "/tools/collection/agr-and-target"
+		},
+		{
+			"title": "Week Day Rating",
+			"kicker": "Collection",
+			"description": "Daily classroom check-in tool for tracking overall behavioral patterns across the school day.",
+			"items": [
+				"Session-based access code",
+				"0 – 10 day rating",
+				"Supabase-backed submission"
+			],
+			"href": "/tools/collection/week-day-rating"
 		}
 	]
 }
