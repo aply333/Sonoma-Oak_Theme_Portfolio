@@ -130,6 +130,31 @@ export const portfolioContentQuery = groq`
 	}
 `;
 
+export const itLandingContentQuery = groq`
+	*[_type == "itLandingContent" && _id in ["drafts.itLandingContent", "itLandingContent"]]
+		| order(_id desc)[0]{
+			hero{
+				name,
+				role,
+				summary,
+				availability,
+				"resumeUrl": resumeFile.asset->url,
+				links
+			},
+			skills{
+				development,
+				groups,
+				certifications
+			},
+			experience,
+			homelab,
+			clientWorks,
+			education,
+			contact,
+			footer
+		}
+`;
+
 export const blogRootQuery = groq`
 	{
 		"blogContent": *[_type == "blogContent" && _id in ["drafts.blogContent", "blogContent"]]
