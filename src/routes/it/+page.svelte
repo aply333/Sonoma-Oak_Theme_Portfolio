@@ -17,7 +17,7 @@
 	const resumeLink = $derived(content.hero.links.find(isResumeLink));
 
 	let theme = $state('light');
-	let expandedCertificationIndex = $state(/** @type {number | null} */ (null));
+	let expandedCertificationIndexes = $state(/** @type {Set<number>} */ (new Set()));
 
 	const themeAriaLabel = $derived(`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
 
@@ -40,6 +40,24 @@
 	/** @param {string | undefined} href */
 	function isExternalLink(href) {
 		return /^[a-z][a-z0-9+.-]*:/i.test(href ?? '');
+	}
+
+	/** @param {number} index */
+	function isCertificationExpanded(index) {
+		return expandedCertificationIndexes.has(index);
+	}
+
+	/** @param {number} index */
+	function toggleCertification(index) {
+		const nextIndexes = new Set(expandedCertificationIndexes);
+
+		if (nextIndexes.has(index)) {
+			nextIndexes.delete(index);
+		} else {
+			nextIndexes.add(index);
+		}
+
+		expandedCertificationIndexes = nextIndexes;
 	}
 
 	onMount(() => {
@@ -163,15 +181,14 @@
 					{#if cert.showcasedWork?.length}
 						<article
 							class="cert cert--has-work"
-							class:cert--expanded={expandedCertificationIndex === index}
+							class:cert--expanded={isCertificationExpanded(index)}
 						>
 							<button
 								class="cert__trigger"
 								type="button"
-								aria-expanded={expandedCertificationIndex === index}
+								aria-expanded={isCertificationExpanded(index)}
 								aria-controls={`cert-work-${index}`}
-								onclick={() =>
-									(expandedCertificationIndex = expandedCertificationIndex === index ? null : index)}
+								onclick={() => toggleCertification(index)}
 							>
 								<span class="cert__status">{cert.status}</span>
 								<h3>{cert.title}</h3>
@@ -183,7 +200,7 @@
 							<div
 								class="cert__work"
 								id={`cert-work-${index}`}
-								inert={expandedCertificationIndex !== index}
+								inert={!isCertificationExpanded(index)}
 							>
 								<div class="cert__work-inner">
 									{#each cert.showcasedWork as work}
