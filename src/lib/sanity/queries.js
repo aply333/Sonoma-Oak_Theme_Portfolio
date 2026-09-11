@@ -144,7 +144,19 @@ export const itLandingContentQuery = groq`
 			skills{
 				development,
 				groups,
-				certifications
+				certifications[]{
+					status,
+					title,
+					description,
+					"showcasedWork": showcasedWork[defined(file.asset->url) || defined(link)]{
+						title,
+						description,
+						"fileUrl": file.asset->url,
+						"fileName": file.asset->originalFilename,
+						link,
+						isCertificateLink
+					}
+				}
 			},
 			experience,
 			homelab,

@@ -17,6 +17,7 @@
 	const resumeLink = $derived(content.hero.links.find(isResumeLink));
 
 	let theme = $state('light');
+	let expandedCertificationIndex = $state(/** @type {number | null} */ (null));
 
 	const themeAriaLabel = $derived(`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
 
@@ -158,14 +159,65 @@
 			</div>
 
 			<div class="certs">
-				{#each content.skills.certifications as cert}
-					<div class="cert">
-						<span class="cert__status">{cert.status}</span>
-						<h3>{cert.title}</h3>
-						{#if cert.description}
-							<p>{cert.description}</p>
-						{/if}
-					</div>
+				{#each content.skills.certifications as cert, index}
+					{#if cert.showcasedWork?.length}
+						<article
+							class="cert cert--has-work"
+							class:cert--expanded={expandedCertificationIndex === index}
+						>
+							<button
+								class="cert__trigger"
+								type="button"
+								aria-expanded={expandedCertificationIndex === index}
+								aria-controls={`cert-work-${index}`}
+								onclick={() =>
+									(expandedCertificationIndex = expandedCertificationIndex === index ? null : index)}
+							>
+								<span class="cert__status">{cert.status}</span>
+								<h3>{cert.title}</h3>
+								{#if cert.description}
+									<p>{cert.description}</p>
+								{/if}
+								<span class="cert__toggle">View work</span>
+							</button>
+							<div
+								class="cert__work"
+								id={`cert-work-${index}`}
+								inert={expandedCertificationIndex !== index}
+							>
+								<div class="cert__work-inner">
+									{#each cert.showcasedWork as work}
+									<article class="cert__assignment">
+										<h4>{work.title}</h4>
+										{#if work.description}
+											<p>{work.description}</p>
+										{/if}
+										<div class="cert__assignment-links">
+											{#if work.fileUrl}
+												<a href={work.fileUrl} target="_blank" rel="noreferrer"
+													>Open {work.fileName ?? 'attachment'}</a
+												>
+											{/if}
+											{#if work.link}
+												<a href={work.link} target="_blank" rel="noreferrer"
+													>{work.isCertificateLink ? 'View certificate' : 'Visit course site'}</a
+												>
+											{/if}
+										</div>
+									</article>
+									{/each}
+								</div>
+							</div>
+						</article>
+					{:else}
+						<div class="cert">
+							<span class="cert__status">{cert.status}</span>
+							<h3>{cert.title}</h3>
+							{#if cert.description}
+								<p>{cert.description}</p>
+							{/if}
+						</div>
+					{/if}
 				{/each}
 			</div>
 		</section>
@@ -738,6 +790,31 @@
 		background: var(--it-bg-secondary);
 	}
 
+	.cert--has-work {
+		padding: 0;
+	}
+
+	.cert--expanded {
+		grid-column: 1 / -1;
+	}
+
+	.cert__trigger {
+		display: block;
+		width: 100%;
+		padding: 2rem;
+		border: 0;
+		background: transparent;
+		color: inherit;
+		cursor: pointer;
+		font: inherit;
+		text-align: left;
+	}
+
+	.cert__trigger:focus-visible {
+		outline: 0.2rem solid var(--it-accent);
+		outline-offset: -0.2rem;
+	}
+
 	.cert__status {
 		display: inline-flex;
 		align-items: center;
@@ -766,6 +843,83 @@
 		margin-top: 0.6rem;
 		color: var(--it-text-secondary);
 		font-size: 1.4rem;
+	}
+
+	.cert__toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.7rem;
+		margin-top: 1.6rem;
+		color: var(--it-primary);
+		font-family: var(--it-font-mono);
+		font-size: 1.1rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.cert__toggle::after {
+		content: '+';
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	.cert--expanded .cert__toggle::after {
+		content: '−';
+	}
+
+	.cert__work {
+		display: grid;
+		grid-template-rows: 0fr;
+		padding: 0 2rem;
+		border-top: 0.1rem solid transparent;
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			grid-template-rows 0.25s ease,
+			padding 0.25s ease,
+			border-color 0.2s ease,
+			opacity 0.2s ease,
+			visibility 0s linear 0.25s;
+	}
+
+	.cert--expanded .cert__work {
+		grid-template-rows: 1fr;
+		padding: 0 2rem 2rem;
+		border-top-color: var(--it-border);
+		opacity: 1;
+		visibility: visible;
+		transition-delay: 0s;
+	}
+
+	.cert__work-inner {
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	.cert__assignment {
+		padding-top: 1.8rem;
+	}
+
+	.cert__assignment + .cert__assignment {
+		margin-top: 1.8rem;
+		border-top: 0.1rem dashed var(--it-border);
+	}
+
+	.cert__assignment h4 {
+		font-size: 1.45rem;
+	}
+
+	.cert__assignment-links {
+		display: grid;
+		gap: 0.8rem;
+		margin-top: 1.1rem;
+	}
+
+	.cert__assignment-links a {
+		display: inline-block;
+		font-family: var(--it-font-mono);
+		font-size: 1.15rem;
+		letter-spacing: 0.04em;
 	}
 
 	.rows {
