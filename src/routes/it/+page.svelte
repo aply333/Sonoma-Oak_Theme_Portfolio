@@ -18,7 +18,6 @@
 
 	let theme = $state('light');
 
-	const themeLabel = $derived(theme === 'dark' ? 'Light' : 'Dark');
 	const themeAriaLabel = $derived(`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
 
 	/** @param {'light' | 'dark'} nextTheme */
@@ -91,11 +90,16 @@
 			<button
 				class="nav__theme"
 				type="button"
+				role="switch"
+				aria-checked={theme === 'dark'}
 				aria-label={themeAriaLabel}
-				aria-live="polite"
 				onclick={() => applyTheme(theme === 'dark' ? 'light' : 'dark')}
 			>
-				{themeLabel}
+				<span class="nav__theme-track" aria-hidden="true">
+					<span class="nav__theme-icon nav__theme-icon--sun">☀</span>
+					<span class="nav__theme-icon nav__theme-icon--moon">☾</span>
+					<span class="nav__theme-thumb"></span>
+				</span>
 			</button>
 		</div>
 	</nav>
@@ -481,22 +485,77 @@
 	.nav__theme {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.6rem;
-		padding: 0.5rem 1.1rem;
+		justify-content: flex-start;
+		width: 5.808rem;
+		height: 3.3rem;
+		padding: 0.396rem;
 		border: 0.1rem solid color-mix(in srgb, var(--it-text) 34%, var(--it-border));
 		border-radius: 999px;
 		background: var(--it-bg-secondary);
-		color: var(--it-text);
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		white-space: nowrap;
+		cursor: pointer;
+		transition:
+			background 160ms ease,
+			border-color 160ms ease;
 	}
 
 	.nav__theme:hover,
 	.nav__theme:focus-visible {
 		background: var(--it-bg-tertiary);
 		border-color: var(--it-primary);
+	}
+
+	.nav__theme-track {
+		position: relative;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		padding: 0.264rem;
+		border-radius: inherit;
+		background: color-mix(in srgb, var(--it-text-secondary) 50%, transparent);
+	}
+
+	.nav__theme-icon {
+		position: absolute;
+		top: 46%;
+		z-index: 0;
+		font-family: Arial, sans-serif;
+		font-size: 1.518rem;
+		font-weight: 700;
+		line-height: 1;
+		transform: translateY(-50%);
+	}
+
+	.nav__theme-icon--sun {
+		left: 0.462rem;
+		color: #ffffff;
+	}
+
+	.nav__theme-icon--moon {
+		right: 0.462rem;
+		color: var(--it-bg);
+	}
+
+	.nav__theme-thumb {
+		position: relative;
+		z-index: 1;
+		width: 1.98rem;
+		height: 1.98rem;
+		border-radius: 50%;
+		background: var(--it-bg);
+		box-shadow: 0 0.1rem 0.3rem color-mix(in srgb, #000000 25%, transparent);
+		transition:
+			transform 160ms ease,
+			background 160ms ease;
+	}
+
+	.it_page[data-it-theme='dark'] .nav__theme-track {
+		background: var(--it-primary);
+	}
+
+	.it_page[data-it-theme='dark'] .nav__theme-thumb {
+		transform: translateX(2.244rem);
+		background: #f7f9f8;
 	}
 
 	.wrap {
@@ -927,6 +986,14 @@
 	}
 
 	@media (max-width: 700px) {
+		.nav__theme {
+			box-sizing: border-box;
+			flex: 0 0 5.808rem;
+			min-width: 5.808rem;
+			height: 3.3rem;
+			min-height: 3.3rem;
+		}
+
 		.row {
 			grid-template-columns: 1fr;
 			gap: 0.8rem;
